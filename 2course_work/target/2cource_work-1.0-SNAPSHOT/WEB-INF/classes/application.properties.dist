@@ -1,4 +1,0 @@
-db.username=db_name
-db.password=psw123
-db.url=jdbc:postgresql://localhost:5432/name
-db.driver=org.postgresql.Driver
