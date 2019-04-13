@@ -122,7 +122,7 @@
            <div class="card-deck mb-3 text-center">
                <div class="card mb-4 box-shadow">
                    <div class="card-header">
-                       <h4 class="my-0 font-weight-normal">${article.title}</h4>
+                       <h4 class="my-0 font-weight-normal">${article.text}</h4>
                    </div>
                    <div class="card-img-top">
                        <div id="carouselExampleIndicators${article.id}" data-ride="carousel">
@@ -132,11 +132,11 @@
 
                            </ol>
                            <div class="carousel-inner">
-
+                            <#list article.resources as res>
                                <div class='carousel-item'>
-                                   <img class="d-block w-100" src="${article.resources}?auto=yes&bg=666&fg=444&text=Second slide" alt="Second slide">
+                                   <img class="d-block w-100" src="${springMacroRequestContext.contextPath}/${res}" alt="Second slide">
                                </div>
-
+                            </#list>
                            </div>
                            <a class="carousel-control-prev" href="#carouselExampleIndicators${article.id}" role="button" data-slide="prev">
                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>

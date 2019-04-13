@@ -1,17 +1,17 @@
 package com.sera.wellness.controllers;
 
+import com.sera.wellness.forms.ArticleAddForm;
 import com.sera.wellness.models.Article;
 import com.sera.wellness.services.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 
@@ -31,18 +31,30 @@ public class ArticleController {
 
     @RequestMapping(path = "/{id}",method = RequestMethod.GET)
     public String getArticle(@PathVariable Long id, ModelMap modelMap) {
-        Optional<Article> articleCandidat = service.getOne(id);
-        articleCandidat.ifPresent(article -> modelMap.addAttribute("article", article));
-        if (!articleCandidat.isPresent()) {
-            throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
+        try{
+            modelMap.addAttribute("article", service.getArticle(id));
+        }
+        catch (IllegalArgumentException e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
         return "article";
     }
 
+    @RequestMapping(path = "add", method = RequestMethod.GET)
+    public String getArticleForm(ModelMap modelMap){
+        return "add";
+    }
+
     @RequestMapping(path = "add",method = RequestMethod.POST)
-    public String addArticle(@ModelAttribute Article article, ModelMap modelMap) {
-        service.addArticle(article);
-        return "redirect:" + context.getApplicationName() + "/articles";
+    public String addArticle(@RequestParam("title") String title,
+                             @RequestParam("text") String text,
+                              ModelMap modelMap) {
+        ArticleAddForm form = ArticleAddForm.builder()
+                        .title(title)
+                        .text(text)
+                        .build();
+        service.addArticle(form);
+        return "redirect:/articles";
     }
 
 }
