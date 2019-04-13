@@ -40,7 +40,7 @@
     <div class="tab-content">
         <h1>Вход</h1>
 
-        <form action="#" method="post">
+        <form method="post">
 
             <div class="form-group">
                 <label for="email">

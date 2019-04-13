@@ -27,7 +27,8 @@ public class ArticleController {
     public String getAll(ModelMap modelMap) {
         modelMap.addAttribute("articles",service.getAll());
 
-        return "main";
+
+        return "articles";
     }
 
     @RequestMapping(path = "/{id}",method = RequestMethod.GET)

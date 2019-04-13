@@ -49,7 +49,7 @@
 
             </div>
         </#if>
-        <form method="post" action="">
+        <form method="post">
             <div class="form-group">
                 <label for="name">Имя</label>
                 <input type="text" name="first_name" id="name" class="form-control" placeholder="Введите имя" required>
