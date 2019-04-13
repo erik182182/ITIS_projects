@@ -1,17 +1,17 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link href="../../resources/img/logo.png" rel="icon">
+    <link href="img/logo.png" rel="icon">
     <title>Главная</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <link href="https://fonts.googleapis.com/css?family=Philosopher:300,400,700,900|Raleway:400,300,700,900" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 
 
-    <link href="../../resources/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" integrity="2hfp1SzUoho7/TsGGGDaFdsuuDL0LX2hnUp6VkX3CUQ2K4K+xjboZdsXyp4oUHZj" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js" integrity="VjEeINv9OSwtWFLAtmc4JCtEJXXBub00gtSnszmspDLCtC0I4z4nqz7rEFbIZLLU" crossorigin="anonymous"></script>
 
-    <link href="../../resources/css/style.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
 
 </head>
 <body>
@@ -20,7 +20,7 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container" id="header-bar">
         <div class="nav navbar-nav navbar-left" href="#">
-            <img src="../../resources/img/logo.png" width="50" height="50" class="" alt="">
+            <img src="../static/img/logo.png" width="50" height="50" class="" alt="">
             Wellness
         </div>
     </div>
