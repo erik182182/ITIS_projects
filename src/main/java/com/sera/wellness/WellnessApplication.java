@@ -13,9 +13,4 @@ public class WellnessApplication extends WebMvcConfigurerAdapter {
         SpringApplication.run(WellnessApplication.class, args);
     }
 
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/static/**").addResourceLocations("/static/**");
-    }
-
 }
