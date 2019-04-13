@@ -72,7 +72,7 @@ public class UserController {
             try{
                 service.signIn(form);
                 //TODO добавить в сессию и куки
-                return "redirect:/"+ context.getApplicationName() +"/articles";
+                return "redirect:/articles";
 
             }
             catch (IllegalArgumentException e){

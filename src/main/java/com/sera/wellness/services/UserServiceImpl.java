@@ -43,8 +43,7 @@ public class UserServiceImpl implements UserService {
     public void signIn(UserLoginForm form) {
         Optional<User> userCanidate = userRepository.findByEmail(form.getEmail());
         if(userCanidate.isPresent()){
-            if(!userCanidate.get().getHashPassword().equals(
-                    new BCryptPasswordEncoder().encode(form.getPassword()))){
+            if(!new BCryptPasswordEncoder().matches(form.getPassword(), userCanidate.get().getHashPassword())){
                 throw new IllegalArgumentException("Неверный пароль");
             }
         }
