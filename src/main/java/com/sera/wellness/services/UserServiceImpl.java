@@ -6,11 +6,12 @@ import com.sera.wellness.models.User;
 import com.sera.wellness.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-
+@Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -34,8 +35,7 @@ public class UserServiceImpl implements UserService {
                 .consentToReceiveEmails(form.getConsentToReceiveEmails().
                         equals("true"))
                 .sex(sexToByte)
-                //.hashPassword( new BCryptPasswordEncoder().encode(form.getPassword()))
-                .hashPassword(form.getPassword())//
+                .hashPassword( new BCryptPasswordEncoder().encode(form.getPassword()))
                 .build());
     }
 
@@ -43,10 +43,10 @@ public class UserServiceImpl implements UserService {
     public void signIn(UserLoginForm form) {
         Optional<User> userCanidate = userRepository.findByEmail(form.getEmail());
         if(userCanidate.isPresent()){
-//            if(!userCanidate.get().getHashPassword().equals(
-//                    new BCryptPasswordEncoder().encode(form.getPassword()))){
-//                throw new IllegalArgumentException("Неверный пароль");
-//            }
+            if(!userCanidate.get().getHashPassword().equals(
+                    new BCryptPasswordEncoder().encode(form.getPassword()))){
+                throw new IllegalArgumentException("Неверный пароль");
+            }
         }
         else throw new IllegalArgumentException("Пользователя с таким email не существует.");
     }

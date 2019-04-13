@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@RequestMapping
+@Controller
 public class UserController {
     @Autowired
     private UserService service;
@@ -77,7 +77,7 @@ public class UserController {
             }
             catch (IllegalArgumentException e){
                 model.addAttribute("error", e.getMessage());
-                return "redirect:/"+ context.getApplicationName() +"/signin";
+                return "signin";
             }
     }
 }

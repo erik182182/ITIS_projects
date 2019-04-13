@@ -14,7 +14,7 @@ import java.sql.PreparedStatement;
 import java.util.List;
 import java.util.Optional;
 
-
+@Repository
 public class UserRepositoryImpl  implements UserRepository{
 
     private JdbcTemplate jdbcTemplate;
@@ -100,7 +100,7 @@ public class UserRepositoryImpl  implements UserRepository{
     public Optional<User> findByEmail(String name) {
         try{
             return Optional.of(
-                    (User)jdbcTemplate.query(SQL_FIND_USER_BY_EMAIL, new UserRowMapper()));
+                    (User)jdbcTemplate.queryForObject(SQL_FIND_USER_BY_EMAIL, new UserRowMapper(), name));
         }
         catch (EmptyResultDataAccessException e){
             return Optional.empty();

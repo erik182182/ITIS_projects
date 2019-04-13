@@ -61,13 +61,13 @@
 
             <button type="submit" class="btn btn-light btn-lg">Войти</button>
 
-            [#if error??]
+            <#if error??>
                 <div class="error">
                     <p>${error}</p>
                     <!--Для валидации-->
 
                 </div>
-            [/#if]
+            </#if>
 
 
         </form>
