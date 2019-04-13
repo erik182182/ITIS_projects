@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link href="../../resources/img/logo.png" rel="icon">
+    <link href="${springMacroRequestContext.contextPath}/img/logo.png" rel="icon">
     <title>Главная</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <link href="https://fonts.googleapis.com/css?family=Philosopher:300,400,700,900|Raleway:400,300,700,900" rel="stylesheet">
@@ -10,13 +10,11 @@
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="../../resources/lib/bootstrap/js/bootstrap.js"></script>
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" integrity="2hfp1SzUoho7/TsGGGDaFdsuuDL0LX2hnUp6VkX3CUQ2K4K+xjboZdsXyp4oUHZj" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js" integrity="VjEeINv9OSwtWFLAtmc4JCtEJXXBub00gtSnszmspDLCtC0I4z4nqz7rEFbIZLLU" crossorigin="anonymous"></script>
 
-    <link href="../../resources/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
-
-    <link href="../../resources/css/style.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../resources/lib/font-awesome/css/font-awesome.min.css">
+    <link href="${springMacroRequestContext.contextPath}/css/style.css" rel="stylesheet">
 
 
 </head>
@@ -26,7 +24,7 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container" id="header-bar">
         <div class="nav navbar-nav navbar-left" style="width: 29%" href="#">
-            <img src="../../resources/img/logo.png" width="50" height="50" class="" alt="">
+            <img src="${springMacroRequestContext.contextPath}/resources/img/logo.png" width="50" height="50" class="" alt="">
             Wellness
         </div>
 
@@ -158,6 +156,6 @@
 
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
-<script  src="../../resources/js/index.js"></script>
+<script  src="${springMacroRequestContext.contextPath}/js/index.js"></script>
 </body>
 </html>
