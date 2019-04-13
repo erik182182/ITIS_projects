@@ -15,7 +15,7 @@ public class UserRowMapper implements RowMapper<User> {
                 .hashPassword(resultSet.getString("hash_password"))
                 .firstName(resultSet.getString("first_name"))
                 .lastName(resultSet.getString("last_name"))
-                .sex(resultSet.getByte("sex"))
+                .sex(resultSet.getBoolean("sex"))
                 .consentToReceiveEmails(resultSet.getBoolean("consent_to_receive_emails"))
                 .age(resultSet.getInt("age"))
                 .weight(resultSet.getInt("weight"))

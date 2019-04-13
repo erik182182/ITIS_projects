@@ -19,22 +19,20 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void signUp(UserRegistrationForm form) {
-        if(!form.getConsentToTheProcessingOfPersonalData().equals("true"))
+        if(!form.isConsentToTheProcessingOfPersonalData())
             throw new IllegalArgumentException("Согласие обязательно.");
         if(!form.getPassword().equals(form.getRepeatPassword()))
             throw new IllegalArgumentException("Пароли не совпадают.");
-        byte sexToByte = (byte) (form.getSex().equals("Male")?1:
-                form.getSex().equals("Female")?-1:0);
         if(userRepository.findByEmail(form.getEmail()).isPresent())
             throw new IllegalArgumentException("Такой пользователь уже зарегистрирован");
-        if(sexToByte == 0) throw new IllegalArgumentException("Такого пола не существует");
+        if(!form.getSex().equals("male") ||
+                !form.getSex().equals("female")) throw new IllegalArgumentException("Такого пола не существует");
         userRepository.save(User.builder()
                 .email(form.getEmail())
                 .firstName(form.getFirstName())
                 .lastName(form.getLastName())
-                .consentToReceiveEmails(form.getConsentToReceiveEmails().
-                        equals("true"))
-                .sex(sexToByte)
+                .consentToReceiveEmails(form.isConsentToReceiveEmails())
+                .sex(form.getSex().equals("male")?true:false)
                 .hashPassword( new BCryptPasswordEncoder().encode(form.getPassword()))
                 .build());
     }
@@ -49,11 +47,5 @@ public class UserServiceImpl implements UserService {
         }
         else throw new IllegalArgumentException("Пользователя с таким email не существует.");
     }
-
-    @Override
-    public boolean checkCookie(User user, String cookieValue) {
-        return true;
-    }
-
 
 }

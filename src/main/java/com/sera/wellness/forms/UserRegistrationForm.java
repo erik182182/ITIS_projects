@@ -16,6 +16,6 @@ public class UserRegistrationForm {
     private String email;
     private String password;
     private String repeatPassword;
-    private String consentToTheProcessingOfPersonalData;
-    private String consentToReceiveEmails;
+    private boolean consentToTheProcessingOfPersonalData;
+    private boolean consentToReceiveEmails;
 }

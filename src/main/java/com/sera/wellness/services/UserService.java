@@ -8,5 +8,4 @@ import com.sera.wellness.models.User;
 public interface UserService {
     void signUp(UserRegistrationForm form) ;
     void signIn(UserLoginForm form);
-    boolean checkCookie(User user, String cookieValue);
 }

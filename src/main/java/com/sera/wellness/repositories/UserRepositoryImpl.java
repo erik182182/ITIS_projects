@@ -58,7 +58,7 @@ public class UserRepositoryImpl  implements UserRepository{
                     ps.setInt(6,model.getWeight());
                     ps.setInt(7,model.getGrowth());
                     ps.setInt(8,model.getPurposeWeight());
-                    ps.setByte(9,model.getSex());
+                    ps.setBoolean(9,model.isSex());
                     ps.setBoolean(10,model.getConsentToReceiveEmails());
                     return ps;
                 }, keyHolder);
@@ -75,7 +75,7 @@ public class UserRepositoryImpl  implements UserRepository{
     public void update(Long id, User model) {
         jdbcTemplate.update(SQL_UPDATE_USER, model.getFirstName(), model.getLastName(),  model.getEmail(),
                 model.getHashPassword(),model.getAge(),model.getWeight(),model.getGrowth(),model.getPurposeWeight(),
-                model.getSex(), model.getConsentToReceiveEmails(), model.getId());
+                model.isSex(), model.getConsentToReceiveEmails(), model.getId());
     }
 
     @Override
@@ -86,9 +86,6 @@ public class UserRepositoryImpl  implements UserRepository{
         catch (EmptyResultDataAccessException e){
             return Optional.empty();
         }
-
-
-
     }
 
     @Override
