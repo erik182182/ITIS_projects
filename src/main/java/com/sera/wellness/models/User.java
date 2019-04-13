@@ -18,8 +18,8 @@ public class User {
     private boolean sex;
     private String email;
     private String hashPassword;
-    private Boolean consentToReceiveEmails;
-    private Integer age;
-    private Integer weight, growth, purposeWeight;
+    private boolean consentToReceiveEmails;
+    private int age;
+    private int weight, growth, purposeWeight;
 
 }

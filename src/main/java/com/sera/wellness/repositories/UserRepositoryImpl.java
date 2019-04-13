@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.sql.PreparedStatement;
+import java.sql.Types;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,6 +46,7 @@ public class UserRepositoryImpl  implements UserRepository{
 
     @Override
     public void save(User model) {
+        System.out.println(model.getAge());
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(
                 connection -> {
@@ -54,12 +56,12 @@ public class UserRepositoryImpl  implements UserRepository{
                     ps.setString(2,model.getHashPassword());
                     ps.setString(3,model.getFirstName());
                     ps.setString(4,model.getLastName());
-                    ps.setInt(5,model.getAge());
+                    ps.setInt(5, model.getAge());
                     ps.setInt(6,model.getWeight());
                     ps.setInt(7,model.getGrowth());
-                    ps.setInt(8,model.getPurposeWeight());
+                    ps.setInt(8, model.getPurposeWeight());
                     ps.setBoolean(9,model.isSex());
-                    ps.setBoolean(10,model.getConsentToReceiveEmails());
+                    ps.setBoolean(10,model.isConsentToReceiveEmails());
                     return ps;
                 }, keyHolder);
 
@@ -75,7 +77,7 @@ public class UserRepositoryImpl  implements UserRepository{
     public void update(Long id, User model) {
         jdbcTemplate.update(SQL_UPDATE_USER, model.getFirstName(), model.getLastName(),  model.getEmail(),
                 model.getHashPassword(),model.getAge(),model.getWeight(),model.getGrowth(),model.getPurposeWeight(),
-                model.isSex(), model.getConsentToReceiveEmails(), model.getId());
+                model.isSex(), model.isConsentToReceiveEmails(), model.getId());
     }
 
     @Override

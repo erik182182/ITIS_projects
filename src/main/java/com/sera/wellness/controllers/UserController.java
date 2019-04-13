@@ -43,16 +43,13 @@ public class UserController {
                 .consentToTheProcessingOfPersonalData(consentToTheProcessingPersonalData)
                 .sex(sex)
                 .build();
-            try{
+
                 service.signUp(form);
                 //TODO добавить в сессию и куки
                 return "redirect:/articles";
 
-            }
-            catch (IllegalArgumentException e){
-                model.addAttribute("error", e.getMessage());
-                return "redirect:/signup";
-            }
+
+
     }
 
 

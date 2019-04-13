@@ -19,13 +19,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void signUp(UserRegistrationForm form) {
+        System.out.println(form.getSex());
         if(!form.isConsentToTheProcessingOfPersonalData())
             throw new IllegalArgumentException("Согласие обязательно.");
         if(!form.getPassword().equals(form.getRepeatPassword()))
             throw new IllegalArgumentException("Пароли не совпадают.");
         if(userRepository.findByEmail(form.getEmail()).isPresent())
             throw new IllegalArgumentException("Такой пользователь уже зарегистрирован");
-        if(!form.getSex().equals("male") ||
+        if(!form.getSex().equals("male") &&
                 !form.getSex().equals("female")) throw new IllegalArgumentException("Такого пола не существует");
         userRepository.save(User.builder()
                 .email(form.getEmail())
