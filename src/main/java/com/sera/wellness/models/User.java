@@ -15,7 +15,7 @@ public class User {
     private Long id;
     private String firstName;
     private String lastName;
-    private Byte sex;
+    private boolean sex;
     private String email;
     private String hashPassword;
     private Boolean consentToReceiveEmails;

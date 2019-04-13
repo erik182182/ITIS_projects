@@ -29,8 +29,8 @@ public class UserController {
           @RequestParam(value = "last_name") String lastName,
           @RequestParam(value = "password") String password,
           @RequestParam(value = "repeat_password") String repeatPassword,
-          @RequestParam(value = "consent_emails") String consentToReceiveEmails,
-          @RequestParam(value = "consent_data") String consentToTheProcessingPersonalData,
+          @RequestParam(value = "consent_emails", required = false) boolean consentToReceiveEmails,
+          @RequestParam(value = "consent_data") boolean consentToTheProcessingPersonalData,
           @RequestParam(value = "sex") String sex,
                           ModelMap model) {
         UserRegistrationForm form = UserRegistrationForm.builder()
@@ -46,12 +46,12 @@ public class UserController {
             try{
                 service.signUp(form);
                 //TODO добавить в сессию и куки
-                return "redirect:/"+ context.getApplicationName() +"/articles";
+                return "redirect:/articles";
 
             }
             catch (IllegalArgumentException e){
                 model.addAttribute("error", e.getMessage());
-                return "redirect:/"+ context.getApplicationName() +"/signup";
+                return "redirect:/signup";
             }
     }
 
