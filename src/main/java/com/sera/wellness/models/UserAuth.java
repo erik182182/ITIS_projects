@@ -11,16 +11,16 @@ import javax.persistence.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "Article")
-@Table(name = "article")
-public class Article {
+@Entity(name = "UserAuth")
+@Table(name = "user_auth")
+public class UserAuth {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
     private Long id;
-    private String title;
-    private String text;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+    @Column(name = "cookie_value")
+    private String cookieValue;
 }

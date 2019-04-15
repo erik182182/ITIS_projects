@@ -1,15 +1,20 @@
 package com.sera.wellness.filters;
 
 import com.sera.wellness.models.User;
+import com.sera.wellness.models.UserAuth;
 import com.sera.wellness.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
+@Component
+@Order(1)
 public class AuthFilter implements Filter {
 
     @Autowired
@@ -20,25 +25,51 @@ public class AuthFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-//        HttpServletRequest req = (HttpServletRequest) servletRequest;
-//        HttpServletResponse res = (HttpServletResponse) servletResponse;
-//        User user = (User)req.getSession().getAttribute("user");
-//        Cookie token = null;
-//        for(Cookie cookie:req.getCookies()){
-//            if(cookie.getName().equals("token")) token = cookie;
-//        }
-//
-//        if(user != null){
-//            if(token != null){
-//                if(userService.checkCookie(user, token.getValue())){
-//                    res.sendRedirect("/articles");
-//                    return;
-//                }
-//            }
-//        }
-//        req.getSession().setAttribute("user", null);
-//        res.addCookie(new Cookie("token", null));
-        filterChain.doFilter(servletRequest, servletResponse);
+        HttpServletRequest req = (HttpServletRequest) servletRequest;
+        if (req.getSession().getAttribute("user") != null) {
+            filterChain.doFilter(req, servletResponse);
+            return;
+        }
+        Cookie[] cookies = req.getCookies();
+        String id = null, value = null;
+        if(cookies ==null) {
+            filterChain.doFilter(req,servletResponse);
+            return;
+        }
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("id")) {
+                id = cookie.getValue();
+            }
+            if (cookie.getName().equals("value")) {
+                value = cookie.getValue();
+            }
+        }
+        if (id != null) {
+            if (value != null) {
+                Long longId =  -1L;
+                try {
+                    longId = Long.parseLong(id);
+                } catch (Exception e) {
+                    filterChain.doFilter(req, servletResponse);
+                    return;
+                }
+                UserAuth userAuth = null;
+                userAuth = userService.auth(longId);
+                if (userAuth==null) {
+                    System.err.println("wrong");
+                    filterChain.doFilter(req,servletResponse);
+                    return;
+                }
+                if (userAuth.getCookieValue().equals(value)) {
+                    req.getSession().setAttribute("user",userAuth.getUser());
+                }
+            }
+        }
+        try {
+            filterChain.doFilter(req, servletResponse);
+        } catch (Exception e) {
+
+        }
     }
 
     @Override

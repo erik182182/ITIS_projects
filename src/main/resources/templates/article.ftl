@@ -132,11 +132,8 @@
 
                            </ol>
                            <div class="carousel-inner">
-                            <#list article.resources as res>
-                               <div class='carousel-item'>
-                                   <img class="d-block w-100" src="${springMacroRequestContext.contextPath}/${res}" alt="Second slide">
-                               </div>
-                            </#list>
+
+
                            </div>
                            <a class="carousel-control-prev" href="#carouselExampleIndicators${article.id}" role="button" data-slide="prev">
                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -159,6 +156,10 @@
     </div>
 </section>
 
+<form method="post" action="addfavorite">
+    <input type="number" hidden value="${article.id}" name="article_id">
+    <input type="submit" value="add to favorite">
+</form>
 
 <div class="footer" style="padding-top: 75%">
     <footer class="footer" style="background-color:darkslategrey;">
