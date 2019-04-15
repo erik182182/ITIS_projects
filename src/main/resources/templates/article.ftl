@@ -112,10 +112,10 @@
 
 
 
-<section class="cities">
+<section class="articles">
     <div class="container">
-        <div class="row priceTitle">
-            <div class="row priceTitle">
+        <div class="row articleTitle">
+            <div class="row articleTitle">
                 <h1>${article.title}</h1>
             </div>
         </div>

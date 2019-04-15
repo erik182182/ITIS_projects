@@ -350,3 +350,13 @@ a:hover {
 #reviewStars-input #star-5 {
     left: 265px;
 }
+
+.articles{
+    background-color: #e7e5e6;
+    padding-top: 40px;
+    padding-left: 100px;
+    padding-bottom: 45px;
+}
+.articleTitle{
+    margin: 10px auto;
+}
