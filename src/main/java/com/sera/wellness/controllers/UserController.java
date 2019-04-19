@@ -102,6 +102,6 @@ public class UserController {
         response.addCookie(id);
         response.addCookie(value);
         session.removeAttribute("user");
-        return "redirect:/exit";
+        return "redirect:/signin";
     }
 }
