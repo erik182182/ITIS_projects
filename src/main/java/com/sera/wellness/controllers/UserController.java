@@ -67,7 +67,7 @@ public class UserController {
 
 
 
-    @RequestMapping(method = RequestMethod.POST,value = "/signin")
+//    @RequestMapping(method = RequestMethod.POST,value = "/signin")
     public String tryAuth(@RequestParam(value = "email") String email,
                           @RequestParam(value = "password") String password,
                           HttpServletResponse response,
@@ -93,7 +93,7 @@ public class UserController {
                 return "signin";
             }
     }
-    @GetMapping(value = "/exit")
+    /*@GetMapping(value = "/exit")
     public String exit(ModelMap modelMap, HttpServletResponse response) {
         Cookie id = new Cookie( "id","");
         Cookie value = new Cookie( "value","");
@@ -103,5 +103,5 @@ public class UserController {
         response.addCookie(value);
         session.removeAttribute("user");
         return "redirect:/signin";
-    }
+    }*/
 }

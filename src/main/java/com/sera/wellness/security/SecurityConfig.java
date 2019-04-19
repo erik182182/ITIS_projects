@@ -31,7 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     http
             .csrf().disable()
             .authorizeRequests()
-            .antMatchers("/signup").permitAll()
+            .antMatchers("/signup", "/signin").anonymous()
             .antMatchers("/articles").authenticated()
             .and()
             .formLogin()
@@ -39,10 +39,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .usernameParameter("email")
             .passwordParameter("password")
             .failureUrl("/signin?error")
-            .permitAll()
             .defaultSuccessUrl("/articles")
             .and()
-            .logout().logoutSuccessUrl("/signin")
+            .logout().logoutUrl("/exit")
+            .logoutSuccessUrl("/signin")
             .permitAll();
   }
   @Bean
