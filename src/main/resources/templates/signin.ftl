@@ -1,93 +1,60 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <link href="${springMacroRequestContext.contextPath}/img/logo.png" rel="icon">
-    <title>Главная</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <link href="https://fonts.googleapis.com/css?family=Philosopher:300,400,700,900|Raleway:400,300,700,900" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+	<title>Wellness - лучший сервис для похудения! Вход</title>
+	<meta name="keywords" content="Похудение, wellness, здоровье, питание, еда, сервис"> 
+	<meta name="description" content="Wellness - лучший сервис для похудения! С его помощью вы быстро и легко достигните своей цели!">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
+	<link href="https://fonts.googleapis.com/css?family=Damion|Dancing+Script" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz|Oswald|Gabriela" rel="stylesheet">
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" integrity="2hfp1SzUoho7/TsGGGDaFdsuuDL0LX2hnUp6VkX3CUQ2K4K+xjboZdsXyp4oUHZj" crossorigin="anonymous">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js" integrity="VjEeINv9OSwtWFLAtmc4JCtEJXXBub00gtSnszmspDLCtC0I4z4nqz7rEFbIZLLU" crossorigin="anonymous"></script>
-
-    <link href="${springMacroRequestContext.contextPath}/css/style.css" rel="stylesheet">
-
+	<link rel="stylesheet" type="text/css" href="${springMacroRequestContext.contextPath}/css/styles.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
-<body>
-
-
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container" id="header-bar">
-        <div class="nav navbar-nav navbar-left" href="#">
-            <img src="img/logo.png" width="50" height="50" class="" alt="">
-            Wellness
-        </div>
-    </div>
+<body class="auth-page">
+<nav class="navbar auth mt-4 col-8">
+	 <a class="navbar-brand" href="${springMacroRequestContext.contextPath}/articles" >
+    	<img src="../static/server.img/logo.png" width="80" height="70" class="d-inline-block align-top mt-5" alt="Wellness" >
+    	<span class="brand ml-1"> Wellness </span>
+ 	 </a>
 </nav>
+<div class="container">
+	<div class="row">
+		<div class="card auth-card">
+			  <div class="card-header">
+			 	 Вход
+			  </div>
+			  <div class="card-body">
+			    <form method="post">
+					  <div class="form-group p-2 mx-4">
+					    <label for="login">Введите свою почту:</label>
+					    <input type="email" class="form-control" name="email" id="login" aria-describedby="emailHelp" placeholder="E-mail">
+					    <small id="emailHelp" class="form-text text-muted">Почта, с которой вы зарегистрировались на сайте. </small>
+					  </div>
+					  <div class="form-group p-2 mx-4">
+					    <label for="password">Введите пароль:</label>
+					    <input type="password" name="password" class="form-control" id="password" placeholder="Пароль">
+					  </div>
+					  <div class="row justify-content-center">
+					  <small class="form-text text-muted">Еще не зарегистрированы? Войдите <a href="${springMacroRequestContext.contextPath}/signup">сюда</a>. </small>
+					   </div>
+					  <div class="row justify-content-center">
+					  <button type="submit" class="btn btn-success justify-content-center">Войти</button>
+					  </div>
+				</form>			 
+			   </div>
+		</div>
+		<div class="auth-text col-7 p-2 ml-3">
+			 <h2>Похудей с Wellness!</h2>
+			 <p class="pt-6">
+			 Наш сервис поможет Вам легко перейти на правильное питание, которое будет способствовать Вашей заветной цели - скинуть пару киллограммов! Просто поставьте себе цель, найдите немного мотивации - а дальше позаботится Wellness!
+			</p>
+		</div>
 
-<div class="headerwrap col-lg-7">
-    <div class="row centered">
-        <div class="col-lg-offset-2">
-            <h1>«Быть <b>здоровым,</b> жить активно – это стильно, позитивно» </h1>
-            <h2>Цитата</h2>
-        </div>
-    </div>
+	</div>
 </div>
 
-
-<div class="form">
-    <div class="tab-content">
-        <h1>Вход</h1>
-
-        <form method="post">
-
-            <div class="form-group">
-                <label for="email">
-                    Эл. почта<span class="req">*</span>
-                </label>
-                <input type="email" name="email" id="email" autocomplete="off" class="form-control" placeholder="Введите логин"/>
-            </div>
-
-            <div class="form-group">
-                <label for="password">
-                    Пароль<span class="req">*</span>
-                </label>
-                <input type="password" name="password" id="password" autocomplete="off" class="form-control" placeholder="Введите пароль"/>
-            </div>
-
-            <p><a href="#">Не зарегистрированы?</a></p>
-
-
-            <button type="submit" class="btn btn-light btn-lg">Войти</button>
-
-            <#if error??>
-                <div class="error">
-                    <p>${error}</p>
-                    <!--Для валидации-->
-
-                </div>
-            </#if>
-
-
-        </form>
-    </div>
-
-</div>
-
-
-<div class="footer" style="padding-top: 44%">
-    <footer class="footer fixed-bottom" style="background-color:darkslategrey;">
-        <div class="container" style="color: white">
-                <span class="text" style="color: white;">
-                    &copy; Made by Samat, Ernest, Rustem, Alina<br>
-                        All rights reserved</span>
-        </div>
-    </footer>
-</div>
-
-
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
 </body>
 </html>

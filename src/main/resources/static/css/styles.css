@@ -1,0 +1,106 @@
+body{
+	background-color: #e6fcd4;
+	overflow: hidden;
+}
+
+.auth-page{
+	background: url(../server.img/loginback2.jpg);
+	background-size: 100%;
+}
+
+.reg-page{
+	background: url(../server.img/regback2.jpg);
+	background-size: 100%;
+}
+
+
+nav.main{
+	background-color: #33CC33;
+	box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Параметры тени */
+
+}
+
+nav.auth{
+		-webkit-animation: slide-right 1s ease-in-out both;
+	        animation: slide-right 1s ease-in-out both;
+}
+
+nav.main a.navbar-brand .brand{
+	font-family: 'Dancing Script', cursive;
+	font-size: 2.2em;
+	color: white;
+}
+
+.brand{
+	font-family: 'Dancing Script', cursive;
+	font-size: 5em;
+	color: white;
+}
+
+
+.auth-card{
+		box-shadow: 0 0 10px 10px rgba(0,0,0,0.2);
+
+}
+.auth-card .card-header{
+	background-color: #33CC33;
+	font-family: 'Oswald', sans-serif;
+	text-align: center;
+	color: white;
+	font-size: 2em;
+	border-radius: 10%;
+}
+
+.auth-card .card-body{
+	border-radius: 10%;
+	font-weight: bold;
+}
+
+.auth-card button{
+	font-size: 1.5em;
+}
+
+.auth-text{
+	position: relative;
+	text-align: center;
+	top: -700px;
+	left: 100px;
+	color: white;
+	font-family: 'Gabriela', serif;
+	animation: slide-bottom 2s ease-in-out forwards;
+}
+
+.auth-text h2{
+	text-align: center;
+	font-size: 4em;
+	font-weight: bold;
+}
+
+.auth-text p{
+	font-size: 1.5em;
+}
+
+
+
+@-webkit-keyframes slide-right {
+  0% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+  }
+  100% {
+    -webkit-transform: translateX(100px);
+            transform: translateX(100px);
+  }
+}
+
+@keyframes slide-bottom {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(650px);
+  }
+}
+
+
+
