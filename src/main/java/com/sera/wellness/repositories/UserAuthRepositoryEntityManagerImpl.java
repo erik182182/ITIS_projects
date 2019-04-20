@@ -7,11 +7,12 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
 @Repository
-public class UserAuthEntityManagerRepository implements UserAuthRepository{
-    @Autowired
+public class UserAuthRepositoryEntityManagerImpl implements UserAuthRepository{
+    @PersistenceContext
     private EntityManager em;
 
     @Override
