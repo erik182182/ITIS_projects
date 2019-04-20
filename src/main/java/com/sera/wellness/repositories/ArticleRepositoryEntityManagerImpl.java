@@ -9,20 +9,22 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.util.List;
 import java.util.Optional;
+
 @Repository
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class ArticleRepositoryEntityManagerImpl implements ArticleRepository {
-    @Autowired
+    @PersistenceContext
     private EntityManager em;
 
     @Override
     @Transactional
     public void save(Article model) {
-        System.out.println("name" + model.getUser().getFirstName());
         em.persist(model);
     }
 
@@ -40,11 +42,34 @@ public class ArticleRepositoryEntityManagerImpl implements ArticleRepository {
 
     @Override
     public Optional<Article> findOne(Long id) {
-        return Optional.ofNullable(em.find(Article.class,id));
+        Article article = em.find(Article.class, id);
+        if (article!=null) {
+            Query query = em.createNativeQuery("select avg(grade) from grades where article_id=:id;");
+            query.setParameter("id",id);
+            Double avgGrade = (Double) query.getSingleResult();
+            article.setAverageGrade(avgGrade);
+        }
+        return Optional.ofNullable(article);
     }
 
     @Override
     public List<Article> findAll() {
-        return em.createQuery("SELECT a FROM Article a").getResultList();
+        return  em.createQuery("SELECT a FROM Article a").getResultList();
+    }
+    @Override
+    public void evaluate(Long userId,Long articleId,Short grade) {
+        Query query = em.createNativeQuery("insert into grades(user_id, article_id, grade) values (:user_id, :article_id, :grade)");
+        query.setParameter("user_id",userId);
+        query.setParameter("article_id",articleId);
+        query.setParameter("grade",grade);
+        query.executeUpdate();
+    }
+
+    @Override
+    public Short getUsersGrade(Long userId, Long articleId) {
+        Query query = em.createNativeQuery("select grade from grades where article_id=:article_id and user_id=:user_id;");
+        query.setParameter("article_id",articleId);
+        query.setParameter("user_id",userId);
+        return (Short) query.getSingleResult();
     }
 }

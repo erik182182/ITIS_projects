@@ -1,7 +1,9 @@
 package com.sera.wellness.controllers;
 
 import com.sera.wellness.forms.ArticleAddForm;
+import com.sera.wellness.forms.CommentForm;
 import com.sera.wellness.models.Article;
+import com.sera.wellness.models.Comment;
 import com.sera.wellness.models.User;
 import com.sera.wellness.security.UserDetailsImpl;
 import com.sera.wellness.services.ArticleService;
@@ -39,9 +41,13 @@ public class ArticleController {
     }
 
     @RequestMapping(path = "/{id}",method = RequestMethod.GET)
-    public String getArticle(@PathVariable Long id, ModelMap modelMap) {
+    public String getArticle(@PathVariable Long id, ModelMap modelMap,Authentication authentication) {
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        User user = userDetails.getUser();
         try{
-            modelMap.addAttribute("article", service.getArticle(id));
+            Article article = service.getArticle(id);
+            modelMap.addAttribute("usersGrade",service.getUsersGrade(user.getId(),id));
+            modelMap.addAttribute("article", article);
         }
         catch (IllegalArgumentException e){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
@@ -78,13 +84,28 @@ public class ArticleController {
         return "favoriteArticles";
     }
 
-    @PostMapping("/addfavorite")
-    public String addFavorite(@RequestParam(value = "article_id") Long articleId,
+    @PostMapping("/{id}/addfavorite")
+    public String addFavorite(@PathVariable("id") Long articleId,
             ModelMap modelMap, Authentication authentication) {
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         User user = userDetails.getUser();
         service.addFavoriteArticle(articleId, user);
         return "redirect:/articles/favorite";
     }
+    @PostMapping("/addComment")
+    public String addComment(@ModelAttribute CommentForm commentForm, ModelMap modelMap, Authentication authentication) {
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        User user = userDetails.getUser();
+        service.addComment(commentForm,user.getId());
+        return "redirect:/articles/"+commentForm.getArticleId();
+    }
+    @PostMapping("/{id}/evaluate")
+    public String evaluate(@RequestParam Short grade ,@PathVariable("id") Long articleId ,Authentication authentication ,ModelMap modelMap) {
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        User user = userDetails.getUser();
+        service.evaluate(user.getId(),articleId,grade);
+        return "redirect:/articles/"+articleId;
+    }
+
 
 }
