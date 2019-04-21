@@ -37,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .usernameParameter("email")
             .passwordParameter("password")
             .failureUrl("/signin?error")
-            .defaultSuccessUrl("/articles")
+            .defaultSuccessUrl("/profile")
             .and()
             .logout().logoutUrl("/exit")
             .logoutSuccessUrl("/signin")

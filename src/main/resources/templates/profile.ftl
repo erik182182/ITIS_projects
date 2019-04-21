@@ -99,11 +99,11 @@
             <div class="form-group">
                 <label>Пол</label><br>
                 <label>
-                    <input type="radio" name="gender" value="male" class="form-check-input" <#if getUser.sex=true>checked</#if>>мужской
+                    <input type="radio" name="gender" value="male" class="form-check-input" <#if getUser.sex>checked</#if>>мужской
                     <div class="radio-control male"></div>
                 </label><br>
                 <label>
-                    <input type="radio" name="gender" value="female" class="form-check-input"<#if getUser.sex=false>checked</#if>>женский
+                    <input type="radio" name="gender" value="female" class="form-check-input" <#if !getUser.sex>checked</#if>>женский
                     <div class="radio-control female"></div>
                 </label>
             </div>
@@ -121,22 +121,22 @@
             </div>
             <div class="form-group">
                 <label for="subscription"  class="form-check-label">
-                    <input class="form-check-input" type="checkbox" name="subscription" value="true" id="subscription"<#if getUser.consentToReceiveEmails=true>checked</#if>>
+                    <input class="form-check-input" type="checkbox" name="subscription" value="true" id="subscription" <#if getUser.consentToReceiveEmails>checked</#if>>
                     Подписка
                 </label>
             </div>
 
             <div class="form-group">
                 <label for="growth">Рост</label>
-                <input type="number" name="growth" id="growth" class="form-control" placeholder="Ваш рост" value="${getUser.growth}" required>
+                <input type="number" name="growth" id="growth" class="form-control" placeholder="Ваш рост" value="<#if getUser.growth??>${getUser.growth}</#if>" required>
             </div>
             <div class="form-group">
                 <label for="weight">Текущий вес</label>
-                <input type="number" name="weight" id="weight" class="form-control" placeholder="Текущий вес в кг" value="${getUser.weight}" required>
+                <input type="number" name="weight" id="weight" class="form-control" placeholder="Текущий вес в кг" value="<#if getUser.weight??>${getUser.weight}</#if>" required>
             </div>
             <div class="form-group">
                 <label for="purposeWeight">Цель</label>
-                <input type="number" name="purposeWeight" id="purposeWeight" class="form-control" placeholder="Цель" value="${getUser.purposeWeight}" required>
+                <input type="number" name="purposeWeight" id="purposeWeight" class="form-control" placeholder="Цель" value="<#if getUser.purposeWeight??>${getUser.purposeWeight}</#if>" required>
             </div>
 
             <button type="submit" class="btn btn-light btn-lg">Обновить данные</button>
