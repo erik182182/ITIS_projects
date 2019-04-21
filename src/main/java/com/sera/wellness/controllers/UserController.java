@@ -1,7 +1,5 @@
 package com.sera.wellness.controllers;
 
-import com.sera.wellness.forms.UserLoginForm;
-import com.sera.wellness.models.UserAuth;
 import com.sera.wellness.services.UserService;
 import com.sera.wellness.forms.UserRegistrationForm;
 import org.springframework.beans.factory.annotation.Autowired;

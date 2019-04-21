@@ -3,23 +3,17 @@ package com.sera.wellness.controllers;
 import com.sera.wellness.forms.ArticleAddForm;
 import com.sera.wellness.forms.CommentForm;
 import com.sera.wellness.models.Article;
-import com.sera.wellness.models.Comment;
 import com.sera.wellness.models.User;
-import com.sera.wellness.security.UserDetailsImpl;
 import com.sera.wellness.services.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.server.ResponseStatusException;
-
-import javax.servlet.http.HttpSession;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/articles")
@@ -33,20 +27,22 @@ public class ArticleController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String getAll(ModelMap modelMap, Authentication authentication) {
-        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-        User user = userDetails.getUser();
-//        System.out.println(user);
         modelMap.addAttribute("articles",service.getAll());
         return "articles";
     }
 
     @RequestMapping(path = "/{id}",method = RequestMethod.GET)
     public String getArticle(@PathVariable Long id, ModelMap modelMap,Authentication authentication) {
-        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-        User user = userDetails.getUser();
+        User user = null;
+        if (authentication!=null) {
+            user = (User) authentication.getPrincipal();
+
+        }
         try{
             Article article = service.getArticle(id);
-            modelMap.addAttribute("usersGrade",service.getUsersGrade(user.getId(),id));
+            if (user!=null) {
+                modelMap.addAttribute("usersGrade", service.getUsersGrade(user.getId(), id));
+            }
             modelMap.addAttribute("article", article);
         }
         catch (IllegalArgumentException e){
@@ -56,7 +52,10 @@ public class ArticleController {
     }
 
     @RequestMapping(path = "add", method = RequestMethod.GET)
-    public String getArticleForm(ModelMap modelMap){
+    public String getArticleForm(ModelMap modelMap, Authentication authentication){
+        if (authentication ==null) {
+            return "redirect:/signin";
+        }
         return "addArticle";
     }
 
@@ -69,17 +68,20 @@ public class ArticleController {
                         .title(title)
                         .text(text)
                         .build();
-        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-        User user = userDetails.getUser();
+        if (authentication ==null) {
+            return "redirect:/signin";
+        }
+        User user = (User) authentication.getPrincipal();
         service.addArticle(form, user);
         return "redirect:/articles";
     }
 
     @GetMapping("/favorite")
     public String getFavoriteArticles(ModelMap modelMap, Authentication authentication) {
-        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-        User user = userDetails.getUser();
-//        System.out.println((user.getId()));
+        if (authentication ==null) {
+            return "redirect:/signin";
+        }
+        User user = (User) authentication.getPrincipal();
         modelMap.addAttribute("articles", user.getFavoriteArticles());
         return "favoriteArticles";
     }
@@ -87,22 +89,28 @@ public class ArticleController {
     @PostMapping("/addfavorite")
     public String addFavorite(@RequestParam("article_id") Long articleId,
             ModelMap modelMap, Authentication authentication) {
-        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-        User user = userDetails.getUser();
+        if (authentication ==null) {
+            return "redirect:/signin";
+        }
+        User user = (User) authentication.getPrincipal();
         service.addFavoriteArticle(articleId, user);
         return "redirect:/articles/favorite";
     }
     @PostMapping("/addComment")
     public String addComment(@ModelAttribute CommentForm commentForm, ModelMap modelMap, Authentication authentication) {
-        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-        User user = userDetails.getUser();
+        if (authentication ==null) {
+            return "redirect:/signin";
+        }
+        User user = (User) authentication.getPrincipal();
         service.addComment(commentForm,user.getId());
         return "redirect:/articles/"+commentForm.getArticleId();
     }
     @PostMapping("/{id}/evaluate")
     public String evaluate(@RequestParam Short grade ,@PathVariable("id") Long articleId ,Authentication authentication ,ModelMap modelMap) {
-        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-        User user = userDetails.getUser();
+        if (authentication ==null) {
+            return "redirect:/signin";
+        }
+        User user = (User) authentication.getPrincipal();
         service.evaluate(user.getId(),articleId,grade);
         return "redirect:/articles/"+articleId;
     }
