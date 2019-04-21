@@ -5,6 +5,7 @@ import com.sera.wellness.models.UserAuth;
 import com.sera.wellness.services.UserService;
 import com.sera.wellness.forms.UserRegistrationForm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -84,6 +85,9 @@ public class UserController {
                 value.setMaxAge(60*60*24*7);
                 response.addCookie(id);
                 response.addCookie(value);
+
+
+
                 session.setAttribute("user",userAuth.getUser());
                 return "redirect:/articles";
 
@@ -93,6 +97,28 @@ public class UserController {
                 return "signin";
             }
     }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/profile")
+    public String webFlow(){
+        return "profile";
+    }
+    @RequestMapping(method = RequestMethod.POST, value = "/profile")
+    public String webFlow(
+            @RequestParam(value = "email") String email,
+            @RequestParam(value = "first_name") String firstName,
+            @RequestParam(value = "last_name") String lastName,
+            @RequestParam(value = "password") String password,
+            @RequestParam(value = "repeat_password") String repeatPassword,
+            @RequestParam(value = "consent_emails", required = false) boolean consentToReceiveEmails,
+            @RequestParam(value = "sex") String sex,
+            @RequestParam(value = "growth") Long growth,
+            @RequestParam(value = "weight") Long weight,
+            @RequestParam(value = "purposeWeight") Long purposeWeight
+
+    ){
+        return "profile";
+    }
+
     /*@GetMapping(value = "/exit")
     public String exit(ModelMap modelMap, HttpServletResponse response) {
         Cookie id = new Cookie( "id","");

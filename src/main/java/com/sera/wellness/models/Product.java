@@ -11,18 +11,18 @@ import javax.persistence.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "Comment")
-@Table(name = "comment")
-public class Comment {
+@Entity(name = "Product")
+@Table(name = "product")
+public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
     private Long id;
-    private String text;
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-    @ManyToOne
-    @JoinColumn(name = "article_id")
-    private Article article;
+    private String name,
+            img;
+    private Float protein,
+            fats,
+            carbohydrates,
+            calories;
+    private Boolean type;
 }
