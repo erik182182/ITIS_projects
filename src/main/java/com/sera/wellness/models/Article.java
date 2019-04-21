@@ -27,5 +27,5 @@ public class Article {
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "article")
     private List<Comment> comments;
     @Transient
-    private Double averageGrade;
+    private Float averageGrade;
 }

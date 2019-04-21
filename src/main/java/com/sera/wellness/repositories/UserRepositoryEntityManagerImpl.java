@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
@@ -27,7 +28,11 @@ public class UserRepositoryEntityManagerImpl implements UserRepository {
     public Optional<User> findByEmail(String email) {
         Query query = em.createQuery("SELECT u from User u where u.email = :email");
         query.setParameter("email",email);
-        return Optional.ofNullable((User) query.getSingleResult());
+        try {
+            return Optional.ofNullable((User) query.getSingleResult());
+        } catch (NoResultException e) {
+            return Optional.empty();
+        }
     }
 
     @Override

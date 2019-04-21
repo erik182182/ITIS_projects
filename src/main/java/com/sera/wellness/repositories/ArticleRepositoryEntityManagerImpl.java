@@ -44,10 +44,12 @@ public class ArticleRepositoryEntityManagerImpl implements ArticleRepository {
     public Optional<Article> findOne(Long id) {
         Article article = em.find(Article.class, id);
         if (article!=null) {
-            Query query = em.createNativeQuery("select avg(grade) from grades where article_id=:id;");
+            Query query = em.createNativeQuery("select avg(grade) from grades where article_id=:id");
             query.setParameter("id",id);
-            Double avgGrade = (Double) query.getSingleResult();
-            article.setAverageGrade(avgGrade);
+            Number number = (Number) query.getSingleResult();
+            if (number!=null) {
+                article.setAverageGrade(number.floatValue());
+            }
         }
         return Optional.ofNullable(article);
     }
@@ -67,7 +69,7 @@ public class ArticleRepositoryEntityManagerImpl implements ArticleRepository {
 
     @Override
     public Short getUsersGrade(Long userId, Long articleId) {
-        Query query = em.createNativeQuery("select grade from grades where article_id=:article_id and user_id=:user_id;");
+        Query query = em.createNativeQuery("select grade from grades where article_id=:article_id and user_id=:user_id");
         query.setParameter("article_id",articleId);
         query.setParameter("user_id",userId);
         return (Short) query.getSingleResult();

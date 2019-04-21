@@ -1,6 +1,5 @@
 body{
 	background-color: #e6fcd4;
-	overflow: hidden;
 }
 
 .auth-page{
@@ -80,6 +79,11 @@ nav.main a.navbar-brand .brand{
 	font-size: 1.5em;
 }
 
+.error{
+	font-family: 'Oswald', sans-serif;
+	color: red;
+	font-size: 0.5em;
+}
 
 
 @-webkit-keyframes slide-right {

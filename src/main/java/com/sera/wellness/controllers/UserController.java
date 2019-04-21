@@ -1,18 +1,18 @@
 package com.sera.wellness.controllers;
 
-import com.sera.wellness.forms.UserLoginForm;
-import com.sera.wellness.models.UserAuth;
-import com.sera.wellness.security.UserDetailsImpl;
+import com.sera.wellness.models.User;
 import com.sera.wellness.services.UserService;
 import com.sera.wellness.forms.UserRegistrationForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -52,8 +52,8 @@ public class UserController {
                 .build();
                 try{
                     service.signUp(form);
-                    //TODO добавить в сессию и куки
-                    return "redirect:/articles";
+
+                    return "redirect:/signin";
                 }
                 catch (IllegalArgumentException e){
                     model.addAttribute("error", e.getMessage());
@@ -63,45 +63,24 @@ public class UserController {
 
 
     @RequestMapping(method = RequestMethod.GET,value = "/signin")
-    public String getLoginForm(ModelMap model){
+    public String getLoginForm(HttpServletRequest request, ModelMap model)
+    {
+        if(request.getParameter("error") !=null) {
+            model.addAttribute("error","Неправильный логин или пароль");
+        }
         return "signin";
     }
 
 
 
-//    @RequestMapping(method = RequestMethod.POST,value = "/signin")
-    public String tryAuth(@RequestParam(value = "email") String email,
-                          @RequestParam(value = "password") String password,
-                          HttpServletResponse response,
-                          ModelMap model){
-        UserLoginForm form = UserLoginForm.builder()
-                .email(email)
-                .password(password)
-                .build();
-            try{
-                UserAuth userAuth = service.signIn(form);
-                Cookie id = new Cookie( "id",userAuth.getId().toString());
-                Cookie value = new Cookie( "value",userAuth.getCookieValue());
-                id.setMaxAge(60*60*24*365);
-                value.setMaxAge(60*60*24*7);
-                response.addCookie(id);
-                response.addCookie(value);
-
-
-
-                session.setAttribute("user",userAuth.getUser());
-                return "redirect:/articles";
-
-            }
-            catch (IllegalArgumentException e){
-                model.addAttribute("error", e.getMessage());
-                return "signin";
-            }
-    }
 
     @RequestMapping(method = RequestMethod.GET, value = "/profile")
-    public String webFlow(ModelMap modelMap, UserDetailsImpl userDetails){
-        modelMap.addAttribute("getUser", userDetails.getUser());
+    public String webFlow(ModelMap modelMap, Authentication authentication){
+        if (authentication ==null) {
+            return "redirect:/signin";
+        }
+        User user = (User) authentication.getPrincipal();
+        modelMap.addAttribute("getUser", user);
         return "profile";
     }
     @RequestMapping(method = RequestMethod.POST, value = "/profile")
@@ -121,15 +100,5 @@ public class UserController {
         return "profile";
     }
 
-    /*@GetMapping(value = "/exit")
-    public String exit(ModelMap modelMap, HttpServletResponse response) {
-        Cookie id = new Cookie( "id","");
-        Cookie value = new Cookie( "value","");
-        id.setMaxAge(-1000000000);
-        value.setMaxAge(-1000000000);
-        response.addCookie(id);
-        response.addCookie(value);
-        session.removeAttribute("user");
-        return "redirect:/signin";
-    }*/
+
 }
