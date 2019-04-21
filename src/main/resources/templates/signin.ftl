@@ -26,7 +26,7 @@
 			 	 Вход
 				  <#if error??>
 				  <br>
-  					<span class="error">${error}</span>
+  					<span  class="error">${error}</span>
 				  </#if>
 			  </div>
 			  <div class="card-body">

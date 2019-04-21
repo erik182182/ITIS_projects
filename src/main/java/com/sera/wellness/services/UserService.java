@@ -9,8 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 public interface UserService  {
     void signUp(UserRegistrationForm form) ;
-    UserAuth signIn(UserLoginForm form);
-    UserAuth auth(Long id);
+
 
 
 }

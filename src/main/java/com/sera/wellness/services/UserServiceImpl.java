@@ -42,27 +42,6 @@ public class UserServiceImpl implements UserService {
                 .build());
     }
 
-    @Override
-    public UserAuth signIn(UserLoginForm form) {
-        Optional<User> userCanidate = userRepository.findByEmail(form.getEmail());
-        if(userCanidate.isPresent()){
-            if(!new BCryptPasswordEncoder().matches(form.getPassword(), userCanidate.get().getHashPassword())){
-                throw new IllegalArgumentException("Неверный пароль");
-            } else {
-                String cookieValue = UUID.randomUUID().toString();
-                UserAuth userAuth = UserAuth.builder().user(userCanidate.get()).cookieValue(cookieValue).build();
-                userAuthRepository.save(userAuth);
-
-                return userAuth;
-            }
-        }
-        else throw new IllegalArgumentException("Пользователя с таким email не существует.");
-    }
-    @Override
-    public UserAuth auth(Long id) {
-        Optional<UserAuth> candidat = userAuthRepository.findOne(id);
-        return candidat.orElse(null);
-    }
 
 
 
