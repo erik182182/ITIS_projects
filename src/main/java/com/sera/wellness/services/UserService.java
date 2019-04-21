@@ -12,5 +12,4 @@ public interface UserService  {
     UserAuth signIn(UserLoginForm form);
     UserAuth auth(Long id);
 
-
 }

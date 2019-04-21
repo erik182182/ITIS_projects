@@ -2,6 +2,7 @@ package com.sera.wellness.controllers;
 
 import com.sera.wellness.forms.UserLoginForm;
 import com.sera.wellness.models.UserAuth;
+import com.sera.wellness.security.UserDetailsImpl;
 import com.sera.wellness.services.UserService;
 import com.sera.wellness.forms.UserRegistrationForm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,7 +100,8 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/profile")
-    public String webFlow(){
+    public String webFlow(ModelMap modelMap, UserDetailsImpl userDetails){
+        modelMap.addAttribute("getUser", userDetails.getUser());
         return "profile";
     }
     @RequestMapping(method = RequestMethod.POST, value = "/profile")

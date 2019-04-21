@@ -64,6 +64,4 @@ public class UserServiceImpl implements UserService {
         return candidat.orElse(null);
     }
 
-
-
 }
