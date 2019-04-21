@@ -24,6 +24,10 @@
 		<div class="card auth-card">
 			  <div class="card-header">
 			 	 Вход
+				  <#if error??>
+				  <br>
+  					<span class="error">${error}</span>
+				  </#if>
 			  </div>
 			  <div class="card-body">
 			    <form method="post">

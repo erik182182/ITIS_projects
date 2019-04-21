@@ -20,18 +20,22 @@
     	<span class="brand "> Wellness </span>
  	 </a>
 	</div>
-	<div class="row justify-content-center">
+	<div class="row justify-content-center mb-3">
 		<div class="card auth-card ">
 			  <div class="card-header">
 			 	 Регистрация
+                   <#if error??>
+                   <br>
+  					<span class="error">${error}</span>
+                   </#if>
 			  </div>
 			  <div class="card-body">
 			    <form method="post">
-					  <div class="form-group">
+					  <div class="form-group p-2 mx-2">
 					    <label for="login">Введите почту:</label>
 					    <input type="email" name="email" class="form-control" id="login" aria-describedby="emailHelp" placeholder="E-mail">
 					  </div>
-					  <div class="row justify-content-between ">
+					  <div class="row justify-content-between p-2 mx-2">
 					    <div class="col">
 					    <label for="first-name">Введите имя:</label>
 					      <input type="text" id="first-name" class="form-control" name="first_name" placeholder="Имя">
@@ -41,21 +45,23 @@
 					      <input type="text" id="last-name" name="last_name" class="form-control" placeholder="Фамилия">
 					    </div>
 					  </div>
-						<div class="row justify-content-between">
-                            <div class="form-check col">
+
+						<div class="row justify-content-between p-2 mx-2">
+                            <label class="p-2">Выберите пол:</label>
+                            <div class="form-check">
                                 <input class="form-check-input" type="radio" name="sex" id="male" value="male">
                                 <label class="form-check-label" for="male">
                                     Мужской
                                 </label>
                             </div>
-                            <div class="form-check col">
+                            <div class="form-check">
                                 <input class="form-check-input" type="radio" name="sex" id="female" value="female">
                                 <label class="form-check-label" for="female">
                                     Женский
                                 </label>
                             </div>
 						</div>
-					  <div class="row justify-content-between">
+					  <div class="row justify-content-between p-2 mx-2">
 						  <div class="col">
                               <div class="form-group ">
                                   <label for="password">Введите пароль:</label>
@@ -70,7 +76,7 @@
 						  </div>
 					  </div>
 
-					  <div class="row justify-content-center form-group">
+					  <div class="row justify-content-center form-group p-2 mx-2">
 					    <div class="form-check">
 					      <input class="form-check-input" type="checkbox" name="consent_data" id="gridCheck" required="true">
 					      <label class="form-check-label" for="gridCheck">
@@ -78,7 +84,7 @@
 					      </label>
 					    </div>
 					  </div>
-					  <div class="row justify-content-center form-group">
+					  <div class="row justify-content-center form-group p-2 mx-2">
 					    <div class="form-check">
 					      <input class="form-check-input" type="checkbox" name="consent_emails" id="emailCheck">
 					      <label class="form-check-label" for="emailCheck">
