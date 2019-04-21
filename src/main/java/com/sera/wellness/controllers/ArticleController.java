@@ -84,8 +84,8 @@ public class ArticleController {
         return "favoriteArticles";
     }
 
-    @PostMapping("/{id}/addfavorite")
-    public String addFavorite(@PathVariable("id") Long articleId,
+    @PostMapping("/addfavorite")
+    public String addFavorite(@RequestParam("article_id") Long articleId,
             ModelMap modelMap, Authentication authentication) {
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         User user = userDetails.getUser();
