@@ -5,6 +5,7 @@ import com.sera.wellness.models.UserAuth;
 import com.sera.wellness.services.UserService;
 import com.sera.wellness.forms.UserRegistrationForm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -84,6 +85,9 @@ public class UserController {
                 value.setMaxAge(60*60*24*7);
                 response.addCookie(id);
                 response.addCookie(value);
+
+
+
                 session.setAttribute("user",userAuth.getUser());
                 return "redirect:/articles";
 
