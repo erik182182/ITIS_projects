@@ -15,7 +15,7 @@
 <body class="auth-page">
 <nav class="navbar auth mt-4 col-8">
 	 <a class="navbar-brand" href="${springMacroRequestContext.contextPath}/articles" >
-    	<img src="/static/server.img/logo.png" width="80" height="70" class="d-inline-block align-top mt-5" alt="Wellness" >
+    	<img src="${springMacroRequestContext.contextPath}/server.img/logo.png" width="80" height="70" class="d-inline-block align-top mt-5" alt="Wellness" >
     	<span class="brand ml-1"> Wellness </span>
  	 </a>
 </nav>
@@ -24,6 +24,10 @@
 		<div class="card auth-card">
 			  <div class="card-header">
 			 	 Вход
+				  <#if error??>
+				  <br>
+  					<span class="error">${error}</span>
+				  </#if>
 			  </div>
 			  <div class="card-body">
 			    <form method="post">
