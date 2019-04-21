@@ -126,7 +126,6 @@
                 </label>
 
             </div>
-            <input type="hidden" name="name" value="signUp">
 
             <button type="submit" class="btn btn-light btn-lg">Обновить данные</button>
         </form>
