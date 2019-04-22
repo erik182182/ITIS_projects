@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 @Controller
@@ -43,6 +44,7 @@ public class ArticleController {
             if (user!=null) {
                 modelMap.addAttribute("usersGrade", service.getUsersGrade(user.getId(), id));
             }
+            //System.out.println(article.getMainImg());
             modelMap.addAttribute("article", article);
         }
         catch (IllegalArgumentException e){
@@ -59,14 +61,19 @@ public class ArticleController {
         return "addArticle";
     }
 
+
+
+
     @RequestMapping(path = "add",method = RequestMethod.POST)
     public String addArticle(@RequestParam("title") String title,
                              @RequestParam("text") String text,
+                             @RequestParam("file") MultipartFile file,
                               ModelMap modelMap,
                              Authentication authentication) {
         ArticleAddForm form = ArticleAddForm.builder()
                         .title(title)
                         .text(text)
+                        .file(file)
                         .build();
         if (authentication ==null) {
             return "redirect:/signin";

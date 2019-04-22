@@ -4,16 +4,25 @@ import com.sera.wellness.forms.ArticleAddForm;
 import com.sera.wellness.forms.CommentForm;
 import com.sera.wellness.models.Article;
 import com.sera.wellness.models.Comment;
+import com.sera.wellness.models.UploadedFile;
 import com.sera.wellness.models.User;
 import com.sera.wellness.repositories.ArticleRepository;
 import com.sera.wellness.repositories.CommentRepository;
 import com.sera.wellness.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
+import javax.servlet.ServletContext;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,6 +34,8 @@ public class ArticleServiceImpl implements ArticleService {
     private UserRepository userRepository;
     @Autowired
     private CommentRepository commentRepository;
+    @Autowired
+    private ServletContext servletContext;
 
     public List<Article> getAll() {
         List<Article> articles = articleRepository.findAll();
@@ -46,6 +57,26 @@ public class ArticleServiceImpl implements ArticleService {
                 .text(form.getText())
                 .user(user)
                 .build();
+        if(form.getFile().isEmpty()) {
+            throw new IllegalArgumentException("empty file");
+        }
+        //System.out.println(form.getFile().getOriginalFilename());
+        String[] tmp = form.getFile().getOriginalFilename().split("\\.");
+        String type = tmp[tmp.length-1];
+        String fileName = StuffService.generateUniqueFileNameForUsersUploads("imgarticles",user.getId())
+                                                                       + "." +type;
+        File file = new File("C:/server/uploads/" + fileName);
+        System.out.println(file.getAbsolutePath().toString());
+        try {
+            if (file.createNewFile()) {
+                Files.write(file.toPath(), form.getFile().getBytes());
+                article.setMainImg(UploadedFile.builder().fileName(fileName).build());
+            } else {
+                throw new IllegalArgumentException("error of creating new unique file name");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         articleRepository.save(article);
     }
 
