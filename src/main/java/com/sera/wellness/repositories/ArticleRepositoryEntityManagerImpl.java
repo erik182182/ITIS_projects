@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
@@ -72,6 +73,10 @@ public class ArticleRepositoryEntityManagerImpl implements ArticleRepository {
         Query query = em.createNativeQuery("select grade from grades where article_id=:article_id and user_id=:user_id");
         query.setParameter("article_id",articleId);
         query.setParameter("user_id",userId);
-        return (Short) query.getSingleResult();
+        try {
+            return (Short) query.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 }

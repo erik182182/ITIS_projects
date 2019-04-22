@@ -76,7 +76,7 @@
                 <div class="modal-body">
                     <div class="container-fluid bd-example-row">
                         <div class="row">
-                            <div class="col-md-4">${article.text}</div>
+                            <div class="col-md-4">${article.text} </div>
                         </div>
                     </div>
                 </div>
