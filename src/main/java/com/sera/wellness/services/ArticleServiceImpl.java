@@ -63,7 +63,7 @@ public class ArticleServiceImpl implements ArticleService {
         //System.out.println(form.getFile().getOriginalFilename());
         String[] tmp = form.getFile().getOriginalFilename().split("\\.");
         String type = tmp[tmp.length-1];
-        String fileName = StuffService.generateUniqueFileNameForUsersUploads("imgarticles",user.getId())
+        String fileName = "uploads/" + StuffService.generateUniqueFileNameForUsersUploads("imgarticles",user.getId())
                                                                        + "." +type;
         File file = new File("C:/server/uploads/" + fileName);
         System.out.println(file.getAbsolutePath().toString());
