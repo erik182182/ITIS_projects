@@ -48,14 +48,14 @@
 
 						<div class="row justify-content-between p-2 mx-2">
                             <label class="p-2">Выберите пол:</label>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="sex" id="male" value="male">
+                            <div class="form-check pt-2">
+                                <input class="form-check-input" type="radio" name="sex" id="male" value="male" required="true">
                                 <label class="form-check-label" for="male">
                                     Мужской
                                 </label>
                             </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="sex" id="female" value="female">
+                            <div class="form-check pt-2">
+                                <input class="form-check-input" type="radio" name="sex" id="female" value="female" required="true">
                                 <label class="form-check-label" for="female">
                                     Женский
                                 </label>
