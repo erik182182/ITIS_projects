@@ -21,141 +21,47 @@
 <body>
 
 
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container" id="header-bar">
-        <div class="nav navbar-nav navbar-left" style="width: 29%" href="#">
-            <img src="${springMacroRequestContext.contextPath}/resources/img/logo.png" width="50" height="50" class="" alt="">
-            Wellness
-        </div>
+        <h1>${getUser.firstName} ${getUser.lastName}</h1>
+        <#--<p><a href="#">Удалить</a></p>-->
+        <#--<img src="#" height="440">-->
 
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Главная</a></li>
-                <li><a href="#">Питание</a></li>
-                <li><a href="#">Лента</a></li>
-                <!--<div class="nav navbar-right">-->
-                <!--<a data-toggle="modal" data-target="#myModal" href="#myModal"><img src="../../resources/img/profileLogo.png" width="40">Мой профиль</a>-->
-                <!--</div>-->
+        <form method="post" enctype="multipart/form-data">
+            <label for="upload"><input type="file" name="photo" id="upload" multiple accept="image/*,image/jpeg">Загрузить новую</label>
 
+            <label for="name">Имя</label>
+            <input type="text" name="firstName" id="name" placeholder="Введите имя" value="${getUser.firstName}" required>
+            <label for="surname">Фамилия</label>
+            <input type="text" name="lastName" id="surname" placeholder="Введите фамилию" value="${getUser.lastName}" required>
+            <label>Пол
+            <input type="radio" name="sex" value="true" <#if getUser.sex>checked</#if>>мужской
+            </label>
+            <label>
+            <input type="radio" name="sex" value="false" <#if !getUser.sex>checked</#if>>женский
+            </label>
+            <label for="email">E-mail</label>
+            <input type="email" id="email" placeholder="email" value="${getUser.email}" disabled>
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" placeholder="придумайте пароль">
+            <label for="repassword">Repassword</label>
+            <input type="password" name="repeat_password" id="repassword" placeholder="повторите пароль">
+            <label for="subscription">
+            <input type="checkbox" name="consent_emails" value="true" id="subscription" <#if getUser.consentToReceiveEmails>checked</#if>>
+                Подписка
+            </label>
 
-                <li class="menu__item dropdown active">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img src="#" width="40">Мой профиль
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
-                        <li><a class="dropdown-item" href="#">Мой профиль</a></li>
-                        <li><a class="dropdown-item" href="#">Мой прогресс</a></li>
-                        <li><a class="dropdown-item" href="#">Мои сообщения</a></li>
-                        <li><div class="dropdown-divider"></div></li>
-                        <li><a class="dropdown-item" href="#">Настройки</a></li>
-                        <li><a class="dropdown-item" href="#">Выход</a></li>
+            <label for="growth">Рост</label>
+            <input type="number" name="growth" id="growth" placeholder="Ваш рост" value="<#if getUser.growth??>${getUser.growth}</#if>" required>
+            <label for="age">Рост</label>
+            <input type="number" name="age" id="age" placeholder="Возраст" value="<#if getUser.age??>${getUser.age}</#if>" required>
 
-                    </ul>
-                </li>
+            <label for="weight">Текущий вес</label>
+            <input type="number" name="weight" id="weight" placeholder="Текущий вес в кг" value="<#if getUser.weight??>${getUser.weight}</#if>" required>
+            <label for="purposeWeight">Цель</label>
+            <input type="number" name="purposeWeight" id="purposeWeight" placeholder="Цель" value="<#if getUser.purposeWeight??>${getUser.purposeWeight}</#if>" required>
 
-            </ul>
-        </div>
-    </div>
-
-</nav>
-
-<div class="panel col-lg-2">
-    <div class="row left">
-        <div class="col-lg-offset-2">
-            <button type="button" class="btn btn-secondary btn-lg btn-block btn-success">Мой прогресс</button>
-            <button type="button" class="btn btn-secondary btn-lg btn-block btn-success">Мои сообщения</button>
-            <button type="button" class="btn btn-secondary btn-lg btn-block btn-success">Настройки</button>
-
-        </div>
-    </div>
-</div>
-
-<div class="container">
-
-    <div class="profile-container">
-        <h1>Зайдуллин Самат</h1>
-        <ul>
-            <li>
-                <span class="settings">
-                    <label for="upload"><a><input type="file" id="upload" style="display: none"><i class="fa fa-upload"></i>Загрузить новую</a></label>
-                    <p><a href="#"><i class="fa fa-shopping-basket"></i>Удалить</a></p>
-                </span>
-                <img src="https://pp.userapi.com/c850232/v850232710/10b9cd/sdzFQ5uN3L4.jpg" height="440">
-            </li>
-
-        </ul>
-    </div>
-
-    <div class="data-container">
-        <form method="post">
-            <div class="form-group">
-                <label for="name">Имя</label>
-                <input type="text" name="firstName" id="name" class="form-control" placeholder="Введите имя" value="${getUser.firstName}" required>
-            </div>
-            <div class="form-group">
-                <label for="surname">Фамилия</label>
-                <input type="text" name="lastName" id="surname" class="form-control" placeholder="Введите фамилию" value="${getUser.lastName}" required>
-            </div>
-            <div class="form-group">
-                <label>Пол</label><br>
-                <label>
-                    <input type="radio" name="sex" value="true" class="form-check-input" <#if getUser.sex>checked</#if>>мужской
-                    <div class="radio-control male"></div>
-                </label><br>
-                <label>
-                    <input type="radio" name="sex" value="false" class="form-check-input" <#if !getUser.sex>checked</#if>>женский
-                    <div class="radio-control female"></div>
-                </label>
-            </div>
-            <div class="form-group">
-                <label for="email">E-mail</label>
-                <input type="email" id="email" class="form-control" placeholder="email" value="${getUser.email}" disabled>
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" name="password" id="password" class="form-control" placeholder="придумайте пароль">
-            </div>
-            <div class="form-group">
-                <label for="repassword">Repassword</label>
-                <input type="password" name="repeat_password" id="repassword" class="form-control" placeholder="повторите пароль">
-            </div>
-            <div class="form-group">
-                <label for="subscription"  class="form-check-label">
-                    <input class="form-check-input" type="checkbox" name="consent_emails" value="true" id="subscription" <#if getUser.consentToReceiveEmails>checked</#if>>
-                    Подписка
-                </label>
-            </div>
-
-            <div class="form-group">
-                <label for="growth">Рост</label>
-                <input type="number" name="growth" id="growth" class="form-control" placeholder="Ваш рост" value="<#if getUser.growth??>${getUser.growth}</#if>" required>
-            </div>
-            <div class="form-group">
-                <label for="weight">Текущий вес</label>
-                <input type="number" name="weight" id="weight" class="form-control" placeholder="Текущий вес в кг" value="<#if getUser.weight??>${getUser.weight}</#if>" required>
-            </div>
-            <div class="form-group">
-                <label for="purposeWeight">Цель</label>
-                <input type="number" name="purposeWeight" id="purposeWeight" class="form-control" placeholder="Цель" value="<#if getUser.purposeWeight??>${getUser.purposeWeight}</#if>" required>
-            </div>
-
-            <button type="submit" class="btn btn-light btn-lg">Обновить данные</button>
+            <button type="submit">Обновить данные</button>
         </form>
     </div>
-
-</div>
-
-
-
-<div class="footer" style="padding-top: 6%">
-    <footer class="footer" style="background-color:darkslategrey;">
-        <div class="container" style="color: white">
-                <span class="text" style="color: white;">
-                    &copy; Made by Samat, Ernest, Rustem, Alina<br>
-                        All rights reserved</span>
-        </div>
-    </footer>
-</div>
 
 
 

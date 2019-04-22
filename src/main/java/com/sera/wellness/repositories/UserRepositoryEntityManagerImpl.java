@@ -50,6 +50,7 @@ public class UserRepositoryEntityManagerImpl implements UserRepository {
     @Override
     @Transactional
     public void update(User model) {
+//        em.persist(model);
         em.merge(model);
     }
 

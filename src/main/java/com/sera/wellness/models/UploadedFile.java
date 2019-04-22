@@ -20,5 +20,8 @@ public class UploadedFile {
     private Long id;
     @Column(name = "file_name")
     private String fileName;
+
+    @OneToOne(optional = false, mappedBy = "uploadedFile")
+    private User user;
 }
 
