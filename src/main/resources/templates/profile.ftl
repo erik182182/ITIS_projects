@@ -40,7 +40,7 @@
 
                 <li class="menu__item dropdown active">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img src="https://pp.userapi.com/c850232/v850232710/10b9cd/sdzFQ5uN3L4.jpg" width="40">Мой профиль
+                        <img src="#" width="40">Мой профиль
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
                         <li><a class="dropdown-item" href="#">Мой профиль</a></li>
@@ -87,7 +87,7 @@
     </div>
 
     <div class="data-container">
-        <form method="post" action="profile.html">
+        <form method="post">
             <div class="form-group">
                 <label for="name">Имя</label>
                 <input type="text" name="firstName" id="name" class="form-control" placeholder="Введите имя" value="${getUser.firstName}" required>
@@ -99,17 +99,17 @@
             <div class="form-group">
                 <label>Пол</label><br>
                 <label>
-                    <input type="radio" name="gender" value="male" class="form-check-input" <#if getUser.sex>checked</#if>>мужской
+                    <input type="radio" name="sex" value="true" class="form-check-input" <#if getUser.sex>checked</#if>>мужской
                     <div class="radio-control male"></div>
                 </label><br>
                 <label>
-                    <input type="radio" name="gender" value="female" class="form-check-input" <#if !getUser.sex>checked</#if>>женский
+                    <input type="radio" name="sex" value="false" class="form-check-input" <#if !getUser.sex>checked</#if>>женский
                     <div class="radio-control female"></div>
                 </label>
             </div>
             <div class="form-group">
                 <label for="email">E-mail</label>
-                <input type="email" name="email" id="email" class="form-control" placeholder="email" value="${getUser.email}" required>
+                <input type="email" id="email" class="form-control" placeholder="email" value="${getUser.email}" disabled>
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
@@ -117,11 +117,11 @@
             </div>
             <div class="form-group">
                 <label for="repassword">Repassword</label>
-                <input type="password" name="repassword" id="repassword" class="form-control" placeholder="повторите пароль">
+                <input type="password" name="repeat_password" id="repassword" class="form-control" placeholder="повторите пароль">
             </div>
             <div class="form-group">
                 <label for="subscription"  class="form-check-label">
-                    <input class="form-check-input" type="checkbox" name="subscription" value="true" id="subscription" <#if getUser.consentToReceiveEmails>checked</#if>>
+                    <input class="form-check-input" type="checkbox" name="consent_emails" value="true" id="subscription" <#if getUser.consentToReceiveEmails>checked</#if>>
                     Подписка
                 </label>
             </div>

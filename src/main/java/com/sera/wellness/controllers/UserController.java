@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -85,19 +86,54 @@ public class UserController {
     }
     @RequestMapping(method = RequestMethod.POST, value = "/profile")
     public String webFlow(
-            @RequestParam(value = "email") String email,
-            @RequestParam(value = "first_name") String firstName,
-            @RequestParam(value = "last_name") String lastName,
+            @RequestParam(value = "firstName") String firstName,
+            @RequestParam(value = "lastName") String lastName,
             @RequestParam(value = "password") String password,
             @RequestParam(value = "repeat_password") String repeatPassword,
             @RequestParam(value = "consent_emails", required = false) boolean consentToReceiveEmails,
-            @RequestParam(value = "sex") String sex,
-            @RequestParam(value = "growth") Long growth,
-            @RequestParam(value = "weight") Long weight,
-            @RequestParam(value = "purposeWeight") Long purposeWeight
+            @RequestParam(value = "sex") Boolean sex,
+            @RequestParam(value = "growth") Integer growth,
+            @RequestParam(value = "weight") Integer weight,
+            @RequestParam(value = "purposeWeight") Integer purposeWeight,
+            Authentication authentication ){
+        if (authentication ==null) {
+            return "redirect:/signin";
+        }
+        User user = (User) authentication.getPrincipal();
+        System.out.println(user);
+        System.out.println(password);
+        if (password==null){
+            User userToSave = User.builder()
+                    .id(user.getId())
+                    .firstName(firstName)
+                    .lastName(lastName)
+                    .consentToReceiveEmails(consentToReceiveEmails)
+                    .sex(sex)
+                    .growth(growth)
+                    .weight(weight)
+                    .purposeWeight(purposeWeight)
+                    .build();
+            service.updateUser(userToSave);
+        }else {
+            if (password.equals(repeatPassword)){
+                User userToSave = User.builder()
+                        .id(user.getId())
+                        .firstName(firstName)
+                        .lastName(lastName)
+                        .hashPassword(new BCryptPasswordEncoder().encode(password))
+                        .consentToReceiveEmails(consentToReceiveEmails)
+                        .sex(sex)
+                        .growth(growth)
+                        .weight(weight)
+                        .purposeWeight(purposeWeight)
+                        .build();
+                service.updateUser(userToSave);
+            }
+            //доделать выбрасывать исключения!!!
+        }
 
-    ){
-        return "profile";
+
+        return "redirect:/profile";
     }
 
 

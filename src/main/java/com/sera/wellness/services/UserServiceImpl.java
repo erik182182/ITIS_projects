@@ -53,4 +53,9 @@ public class UserServiceImpl implements UserService {
             //throw new SecurityException("User with email <" + email + "> not found");
         }
     }
+
+    @Override
+    public void updateUser(User user) {
+        userRepository.update(user);
+    }
 }

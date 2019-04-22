@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 public interface UserService extends UserDetailsService  {
     void signUp(UserRegistrationForm form) ;
+    void updateUser(User user);
 
 
 }
