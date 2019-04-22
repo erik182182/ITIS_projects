@@ -10,5 +10,4 @@ public interface UserService extends UserDetailsService  {
     void signUp(UserRegistrationForm form) ;
 
 
-
 }

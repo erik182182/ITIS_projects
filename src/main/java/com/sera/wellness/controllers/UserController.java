@@ -1,10 +1,12 @@
 package com.sera.wellness.controllers;
 
+import com.sera.wellness.models.User;
 import com.sera.wellness.services.UserService;
 import com.sera.wellness.forms.UserRegistrationForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -73,7 +75,12 @@ public class UserController {
 
 
     @RequestMapping(method = RequestMethod.GET, value = "/profile")
-    public String webFlow(){
+    public String webFlow(ModelMap modelMap, Authentication authentication){
+        if (authentication ==null) {
+            return "redirect:/signin";
+        }
+        User user = (User) authentication.getPrincipal();
+        modelMap.addAttribute("getUser", user);
         return "profile";
     }
     @RequestMapping(method = RequestMethod.POST, value = "/profile")
