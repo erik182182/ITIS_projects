@@ -83,4 +83,9 @@ public class UserServiceImpl implements UserService {
 
         userRepository.update(user);
     }
+
+    @Override
+    public Optional<User> getThis(Long id) {
+        return userRepository.findOne(id);
+    }
 }

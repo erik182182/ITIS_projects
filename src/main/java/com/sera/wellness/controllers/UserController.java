@@ -90,6 +90,7 @@ public class UserController {
         if (user.getGrowth()!=null){
             return "redirect:/articles";
         }
+        user = service.getThis(user.getId()).get();
 
         modelMap.addAttribute("getUser", user);
         return "profile";
