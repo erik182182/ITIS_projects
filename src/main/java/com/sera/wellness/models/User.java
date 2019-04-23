@@ -43,9 +43,7 @@ public class User implements UserDetails {
     )
     private List<Article> favoriteArticles;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "photo_id", nullable = true)
-    private UploadedFile uploadedFile;
+    private String photoSrc;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

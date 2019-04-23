@@ -87,9 +87,6 @@ public class UserController {
             return "redirect:/signin";
         }
         User user = (User) authentication.getPrincipal();
-        if (user.getGrowth()!=null){
-            return "redirect:/articles";
-        }
         user = service.getThis(user.getId()).get();
 
         modelMap.addAttribute("getUser", user);
