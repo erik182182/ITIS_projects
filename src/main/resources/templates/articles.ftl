@@ -53,10 +53,10 @@
 	<#if article_index%3!=0>
 	    <#continue>
 	</#if>
-  <div class="container articles my-5">
+  <div class="container articles my-3">
       <div class="row justify-content-end">
           <div class="col-5">
-              <div class="card" style="width: 100%;">
+              <div class="card">
                   <a class="article-link" href="${springMacroRequestContext.contextPath}/articles/${article.id}">
 				  <img src="${springMacroRequestContext.contextPath}/server.img/loginback.jpg" class="card-img-top" alt="img">
                   </a>
@@ -64,7 +64,7 @@
 				  <h5 class="card-title">${article.title}</h5>
 				  <p class="card-text">${article.text}</p>
 				  <form method="post" action="${springMacroRequestContext.contextPath}/articles/addfavorite">
-					  <button type="submit" class="btn addfavorite" title="В избранное"><i class="fa fa-heart ml-5"></i></button>
+					  <button type="submit" class="btn addfavorite" name="article_id" value="${article.id}" title="В избранное"><i class="fa fa-heart ml-5"></i></button>
 				  </form>
 
                   </div>
@@ -75,7 +75,7 @@
 		      <#break>
 		  </#if>
           <div class="col-5">
-              <div class="card" style="width: 100%;">
+              <div class="card">
                   <a class="article-link" href="${springMacroRequestContext.contextPath}/articles/${articles[article_index + 1].id}">
 				  <img src="${springMacroRequestContext.contextPath}/server.img/mainback.jpg" class="card-img-top" alt="img">
                   </a>
@@ -83,7 +83,7 @@
                       <h5 class="card-title">${articles[article_index + 1].title}</h5>
                       <p class="card-text">${articles[article_index + 1].text}</p>
                       <form method="post" action="${springMacroRequestContext.contextPath}/articles/addfavorite">
-                          <button type="submit" class="btn addfavorite" title="В избранное"><i class="fa fa-heart ml-5"></i></button>
+                          <button type="submit" class="btn addfavorite"  name="article_id" value="${article.id}"  title="В избранное"><i class="fa fa-heart ml-5"></i></button>
                       </form>
 
                   </div>
@@ -96,7 +96,7 @@
 	  </#if>
     <div class="row justify-content-end">
         <div class="col-10">
-            <div class="card" style="width: 100%;">
+            <div class="card">
                 <a class="article-link" href="${springMacroRequestContext.contextPath}/articles/${articles[article_index + 2].id}">
                 <img src="${springMacroRequestContext.contextPath}/server.img/regback.jpg" class="card-img-top" alt="img">
 				</a>
@@ -104,7 +104,7 @@
                     <h5 class="card-title">${articles[article_index + 2].title}</h5>
                     <p class="card-text">${articles[article_index + 2].text}</p>
                     <form method="post" action="${springMacroRequestContext.contextPath}/articles/addfavorite">
-                        <button type="submit" class="btn addfavorite" title="В избранное"><i class="fa fa-heart ml-5"></i></button>
+                        <button type="submit" class="btn addfavorite"  name="article_id" value="${article.id}"  title="В избранное"><i class="fa fa-heart ml-5"></i></button>
                     </form>
 
                 </div>
