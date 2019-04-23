@@ -21,7 +21,5 @@ public class UploadedFile {
     @Column(name = "file_name")
     private String fileName;
 
-    @OneToOne(optional = false, mappedBy = "uploadedFile")
-    private User user;
 }
 

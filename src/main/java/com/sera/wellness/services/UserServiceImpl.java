@@ -61,10 +61,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUser(UserProfileForm form) {
-        UploadedFile uploadedFile = UploadedFile.builder()
-                .fileName(form.getPhotoSrc())
-                .build();
-        uploadedFileRepository.save(uploadedFile);
 
         User user = User.builder()
                 .id(form.getId())
@@ -77,7 +73,7 @@ public class UserServiceImpl implements UserService {
                 .age(form.getAge())
                 .growth(form.getGrowth())
                 .weight(form.getWeight())
-                .uploadedFile(uploadedFile)
+                .photoSrc(form.getPhotoSrc())
                 .purposeWeight(form.getPurposeWeight())
                 .build();
 

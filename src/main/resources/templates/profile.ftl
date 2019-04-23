@@ -22,8 +22,6 @@
 
 
         <h1>${getUser.firstName} ${getUser.lastName}</h1>
-        <#--<p><a href="#">Удалить</a></p>-->
-        <#--<img src="#" height="440">-->
 
         <form method="post" enctype="multipart/form-data">
             <label for="upload"><input type="file" name="photo" id="upload" multiple accept="image/*,image/jpeg">Загрузить новую</label>
