@@ -112,13 +112,14 @@ public class UserController {
         User user = (User) authentication.getPrincipal();
         System.out.println(user);
         System.out.println(password);
-        String fileName = user.getId()+photo.getOriginalFilename();
+        String fileName = user.getId()+photo.hashCode()+photo.getOriginalFilename();
+        String fileDir = "src/main/resources/static/users.profile.img/" + fileName;
 
         if (!photo.isEmpty()) {
             try {
                 byte[] bytes = photo.getBytes();
                 BufferedOutputStream stream =
-                        new BufferedOutputStream(new FileOutputStream(new File(fileName)));
+                        new BufferedOutputStream(new FileOutputStream(new File(fileDir)));
                 stream.write(bytes);
                 stream.close();
             } catch (Exception e) {

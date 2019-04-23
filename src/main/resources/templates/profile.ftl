@@ -22,6 +22,11 @@
 
 
         <h1>${getUser.firstName} ${getUser.lastName}</h1>
+        <#if getUser.photoSrc??>
+            <img src="${springMacroRequestContext.contextPath}/users.profile.img/${getUser.photoSrc}">
+        <#else >
+            <img src="${springMacroRequestContext.contextPath}/users.profile.img/default.png">
+        </#if>
 
         <form method="post" enctype="multipart/form-data">
             <label for="upload"><input type="file" name="photo" id="upload" multiple accept="image/*,image/jpeg">Загрузить новую</label>
