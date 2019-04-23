@@ -1,9 +1,6 @@
 package com.sera.wellness.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -12,6 +9,8 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(exclude = {"comments", "mainImg"})
+@ToString(exclude = {"comments", "mainImg"})
 @Entity(name = "Article")
 @Table(name = "article")
 public class Article {
@@ -28,4 +27,7 @@ public class Article {
     private List<Comment> comments;
     @Transient
     private Float averageGrade;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "main_img")
+    private UploadedFile mainImg;
 }

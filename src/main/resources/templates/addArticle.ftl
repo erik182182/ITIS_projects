@@ -25,7 +25,7 @@
         </nav>
     </div>
     <div class="row justify-content-center my-5" style="margin-top: 10%;">
-        <form method="post" class="col-10">
+        <form method="post" class="col-10" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="title">Введите заголовок статьи:</label>
                 <input type="text" class="form-control" name="title" id="title" placeholder="Заголовок статьи">
@@ -34,6 +34,10 @@
                 <label for="text">Введите текст статьи:</label>
                 <textarea class="form-control" name="text" id="text" rows="5"></textarea>
             </div>
+            <div class="form-group">
+                <label for="file">Загрузите главную фотографию статьи:</label>
+                <input type="file" id="file" name="file">
+            </div>
             <button type="submit" class="btn btn-success">Опубликовать</button>
         </form>
     </div>
@@ -41,3 +45,4 @@
 
 </body>
 </html>
+

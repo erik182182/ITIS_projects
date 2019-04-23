@@ -16,6 +16,8 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(exclude = {"createdArticles", "favoriteArticles", "uploadedFile"})
+@ToString(exclude = {"createdArticles", "favoriteArticles", "uploadedFile"})
 @Entity(name = "User")
 @Table(name = "simple_user")
 public class User implements UserDetails {
@@ -40,6 +42,10 @@ public class User implements UserDetails {
             inverseJoinColumns = { @JoinColumn(name = "article_id") }
     )
     private List<Article> favoriteArticles;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "photo_id", nullable = true)
+    private UploadedFile uploadedFile;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

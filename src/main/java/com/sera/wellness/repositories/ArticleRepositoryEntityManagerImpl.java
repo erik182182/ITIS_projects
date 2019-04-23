@@ -71,8 +71,8 @@ public class ArticleRepositoryEntityManagerImpl implements ArticleRepository {
     @Override
     public Short getUsersGrade(Long userId, Long articleId) {
         Query query = em.createNativeQuery("select grade from grades where article_id=:article_id and user_id=:user_id");
-        query.setParameter("article_id", articleId);
-        query.setParameter("user_id", userId);
+        query.setParameter("article_id",articleId);
+        query.setParameter("user_id",userId);
         try {
             return (Short) query.getSingleResult();
         } catch (NoResultException e) {

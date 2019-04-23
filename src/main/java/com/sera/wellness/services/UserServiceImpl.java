@@ -1,9 +1,12 @@
 package com.sera.wellness.services;
 
 import com.sera.wellness.forms.UserLoginForm;
+import com.sera.wellness.forms.UserProfileForm;
 import com.sera.wellness.forms.UserRegistrationForm;
+import com.sera.wellness.models.UploadedFile;
 import com.sera.wellness.models.User;
 
+import com.sera.wellness.repositories.UploadedFileRepository;
 import com.sera.wellness.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.config.crypto.bcrypt.BCryptPasswordEncoder;
@@ -20,6 +23,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private UploadedFileRepository uploadedFileRepository;
 
 
     @Override
@@ -52,5 +57,35 @@ public class UserServiceImpl implements UserService {
             return null;
             //throw new SecurityException("User with email <" + email + "> not found");
         }
+    }
+
+    @Override
+    public void updateUser(UserProfileForm form) {
+        UploadedFile uploadedFile = UploadedFile.builder()
+                .fileName(form.getPhotoSrc())
+                .build();
+        uploadedFileRepository.save(uploadedFile);
+
+        User user = User.builder()
+                .id(form.getId())
+                .email(form.getEmail())
+                .hashPassword(form.getPassword())
+                .firstName(form.getFirstName())
+                .lastName(form.getLastName())
+                .consentToReceiveEmails(form.isConsentToReceiveEmails())
+                .sex(form.getSex())
+                .age(form.getAge())
+                .growth(form.getGrowth())
+                .weight(form.getWeight())
+                .uploadedFile(uploadedFile)
+                .purposeWeight(form.getPurposeWeight())
+                .build();
+
+        userRepository.update(user);
+    }
+
+    @Override
+    public Optional<User> getThis(Long id) {
+        return userRepository.findOne(id);
     }
 }

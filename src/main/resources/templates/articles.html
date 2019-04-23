@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Wellness - лучший сервис для похудения! Главная страница</title>
+	<meta name="keywords" content="Похудение, wellness, здоровье, питание, еда, сервис"> 
+	<meta name="description" content="Wellness - лучший сервис для похудения! С его помощью вы быстро и легко достигните своей цели!">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+	<link href="https://fonts.googleapis.com/css?family=Damion|Dancing+Script|Oswald|Caveat" rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+
+	<link rel="stylesheet" type="text/css" href="../static/css/styles.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body class="main-page">
+<nav class="navbar main navbar-expand navbar-light fixed-top">
+ <a class="navbar-brand" href="" >
+    <img src="../static/server.img/logo.png" width="60" height="50" class="d-inline-block mb-3 m-0" alt="Wellness" >
+    <span class="brand " > Wellness </span>
+  </a>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active px-2 pl-6">
+        <a class="nav-link" href="#">Главная<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item non-active px-2">
+        <a class="nav-link"  href="#">Питание</a>
+      </li>
+      <li class="nav-item non-active px-2">
+        <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">Лента</a>
+      </li>
+    </ul>
+    
+  </div>
+</nav>
+<div class="container ">
+	<div class="row">
+	  <div class="col-3 button-list">
+	    <div class="nav flex-column nav-pills " id="v-pills-tab" role="tablist" aria-orientation="vertical">
+	    <a data-toggle="pill"  href="" role="tab" aria-controls="v-pills-home" aria-selected="true"></a>
+	    <a data-toggle="pill"  href="" role="tab" aria-controls="v-pills-home" aria-selected="true"></a>
+	    <a data-toggle="pill"  href="" role="tab" aria-controls="v-pills-home" aria-selected="true"></a>
+	      <a data-toggle="pill"  href="${springMacroRequestContext.contextPath}/articles/favorite" role="tab" aria-controls="v-pills-home" id="favorite-link" aria-selected="true"><i class="fa fa-heart"></i> Избранное</a>
+	      <a  data-toggle="pill" href="${springMacroRequestContext.contextPath}/articles/add" id="add-article-link" role="tab"  aria-selected="true"><i class="fa fa-plus" aria-controls="v-pills-home"></i> Добавить статью</a>
+	      <a data-toggle="pill" href="${springMacroRequestContext.contextPath}/profile" id="my-profile-link" role="tab"  aria-selected="true" aria-controls="v-pills-home"><i class="fa fa-smile-o"></i> Мой профиль</a>
+	    </div>
+ 	</div>
+ </div>
+ </div>
+
+<div class="container articles">
+  <div class="row justify-content-end mb-3">
+    <div class="carousel slide col-5 article" data-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active d-block w-100">
+              <img src="../static/server.img/loginback.jpg" class="d-block w-100" >
+              <div class="carousel-caption d-none d-md-block">
+                  <h5>First slide label</h5>
+                  <p class="article-text">Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+              </div>
+          </div>
+        </div>
+    </div>
+     <div class="carousel slide col-5 article" data-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+              <img src="../static/server.img/regback.jpg" class="d-block w-100" >
+          </div>
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-end mb-3">
+    <div class="carousel slide col-10 article" data-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+              <img src="../static/server.img/loginback.jpg" class="d-block w-100" >
+          </div>
+        </div>
+    </div>
+  </div>
+
+
+    
+
+</body>
+</html>
