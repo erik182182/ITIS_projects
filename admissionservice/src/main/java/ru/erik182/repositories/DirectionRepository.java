@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface DirectionRepository extends CrudRepository<Direction> {
     List<Direction> getChosenDirectionsOfUser(String passport);
-    List<Direction> getDirectionForUser(User user);
+    List<Direction> getDirectionsForUser(User user);
 }

@@ -8,9 +8,7 @@ import lombok.*;
 @EqualsAndHashCode
 @Builder
 
-public class Exam {
+public class Subject {
     private Long id;
-    private User user;
-    private Subject subject;
-    private int score;
+    private String name;
 }

@@ -131,7 +131,7 @@ public class DirectionRepositoryJdbcTemplateImpl implements DirectionRepository 
     }
 
     @Override
-    public List<Direction> getDirectionForUser(User user) {
+    public List<Direction> getDirectionsForUser(User user) {
         return null;
     }
 

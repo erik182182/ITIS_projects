@@ -35,12 +35,12 @@
                 Заявления<span class="sr-only">(current)</span></a>
             </li>
         </ul>
-        <#if name??>
-            <span style="color: #fff; margin-left: 15px; font-weight: bold">${name}</span>
+        <#if user??>
+            <span style="color: #fff; margin-left: 15px; font-weight: bold">${user.fullName}</span>
         </#if>
 
 
-        <#if !name??>
+        <#if !user??>
             <button type="button" class="btn btn-light" style=" margin-left: 15px;" id="sign-in-button">Войти</button>
 
         <#else>
@@ -51,7 +51,7 @@
         </#if>
     </div>
 </nav>
-    <#if name??>
+    <#if user??>
         <#if directions?size != 0>
             <h2 style="width: 65%; font-weight: bold; margin-bottom: 0px; ">Список всех направлений, на которые Вы можете пройти:</h2>
         <#else>
@@ -81,7 +81,7 @@
                         <div class="tab-pane fade show active" id="v-pills-home${dir.id}" role="tabpanel" >
                             <div>
                                     ${dir.university.info}
-                                <p><span class="info">Город: </span>${dir.university.city}</p>
+                                <p><span class="info">Город: </span>${dir.university.city.name}</p>
 
                             </div>
                         </div>
@@ -95,7 +95,7 @@
                                 <ul class="list-group">
                                     <#list dir.examsWithMinScore as exams>
                                         <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                ${exams.subject}
+                                                ${exams.subject.name}
                                             <span class="badge badge-primary badge-pill">${exams.score}</span>
                                         </li>
                                     </#list>
@@ -107,42 +107,42 @@
                     </div>
                 </div>
             </div>
-            <#if name??>
+            <#if user??>
                 <button type="button" value="${dir.university.name}, ${dir.name}" class="btn btn-success" style="margin-left: 40%; margin-bottom: 3%;" onclick="apply(${dir.id}, value);">Подать заявление</button>
             </#if>
         </div>
 
     </#list>
 
-    <#if directions?size != 0>
-        <#if name??>
-            <div class="card" style="width: 18rem;" id="dir-info">
-                <div class="card-header" style="background-color: aliceblue;">
-                    <h2 style="color: #ff5347;">Важная информация</h2>
-                </div>
-                <div class="card-body" >
-                    <p class="card-text"><h3><span style="color: #56b8ff;">&bull;</span> Помните, что поданное заявление <u style="color: #ff5347;">невозможно отменить.</u></h3></p>
-                    <p class="card-text"><h3><span style="color: #56b8ff;">&bull;</span> Вы можете подать максимум 3 заявления.</h3></p>
-                    <p class="card-text"><h3><span style="color: #56b8ff;">&bull;</span> Вы уже подали <span id="decs-size" style="color: #2673cc;">${size}</span> из  3 заявлений.</h3></p>
+    <#--<#if directions?size != 0>-->
+        <#--<#if user??>-->
+            <#--<div class="card" style="width: 18rem;" id="dir-info">-->
+                <#--<div class="card-header" style="background-color: aliceblue;">-->
+                    <#--<h2 style="color: #ff5347;">Важная информация</h2>-->
+                <#--</div>-->
+                <#--<div class="card-body" >-->
+                    <#--<p class="card-text"><h3><span style="color: #56b8ff;">&bull;</span> Помните, что поданное заявление <u style="color: #ff5347;">невозможно отменить.</u></h3></p>-->
+                    <#--<p class="card-text"><h3><span style="color: #56b8ff;">&bull;</span> Вы можете подать максимум 3 заявления.</h3></p>-->
+                    <#--<p class="card-text"><h3><span style="color: #56b8ff;">&bull;</span> Вы уже подали <span id="decs-size" style="color: #2673cc;">${size}</span> из  3 заявлений.</h3></p>-->
 
 
-                    <ul class="list-group list-group-flush" id="decs">
-                        <#list declarations as dec>
-                            <li class="list-group-item" style="color: #2673cc;">${dec.direction.university.name}, ${dec.direction.name}</li>
-                        </#list>
-                    </ul>
-                </div>
-            </div>
-        <#else>
-            <div class="card" style="width: 18rem;" id="dir-info">
-                <div class="card-body" >
-                        <p>Вы можете войти на сайт, чтобы посмотреть индивидуальный список направлений
-                            для Вас и подать на них заявление.</p>
-                </div>
-            </div>
-        </#if>
+                    <#--<ul class="list-group list-group-flush" id="decs">-->
+                        <#--<#list declarations as dec>-->
+                            <#--<li class="list-group-item" style="color: #2673cc;">${dec.direction.university.name}, ${dec.direction.name}</li>-->
+                        <#--</#list>-->
+                    <#--</ul>-->
+                <#--</div>-->
+            <#--</div>-->
+        <#--<#else>-->
+            <#--<div class="card" style="width: 18rem;" id="dir-info">-->
+                <#--<div class="card-body" >-->
+                        <#--<p>Вы можете войти на сайт, чтобы посмотреть индивидуальный список направлений-->
+                            <#--для Вас и подать на них заявление.</p>-->
+                <#--</div>-->
+            <#--</div>-->
+        <#--</#if>-->
 
-    </#if>
+    <#--</#if>-->
 
     <#if exams??>
         <div class="exams">
@@ -152,7 +152,7 @@
                 </li>
                 <#list exams as exam>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                            ${exam.subject}
+                            ${exam.subject.name}
                         <span class="badge badge-primary badge-pill">${exam.score}</span>
                     </li>
                 </#list>
@@ -160,6 +160,7 @@
         </div>
 
     </#if>
+
 
     <div id = "dir-message"></div>
 
@@ -171,7 +172,7 @@
 
 <script>
 
-    <#if !name??>
+    <#if !user??>
     document.getElementById("sign-in-button").onclick = function () {
         return location.href = "/signIn";
     }
