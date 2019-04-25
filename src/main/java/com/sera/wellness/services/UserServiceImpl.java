@@ -3,6 +3,7 @@ package com.sera.wellness.services;
 import com.sera.wellness.forms.UserLoginForm;
 import com.sera.wellness.forms.UserProfileForm;
 import com.sera.wellness.forms.UserRegistrationForm;
+import com.sera.wellness.models.Friend;
 import com.sera.wellness.models.UploadedFile;
 import com.sera.wellness.models.User;
 
@@ -15,6 +16,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -23,8 +25,6 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
-    @Autowired
-    private UploadedFileRepository uploadedFileRepository;
 
 
     @Override
@@ -83,5 +83,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<User> getThis(Long id) {
         return userRepository.findOne(id);
+    }
+
+    @Override
+    public List<Friend> getFriends(Long userId) {
+        return userRepository.getFriends(userId);
     }
 }

@@ -45,6 +45,14 @@ public class User implements UserDetails {
 
     private String photoSrc;
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "friends",
+            joinColumns = { @JoinColumn(name = "user_id") },
+            inverseJoinColumns = { @JoinColumn(name = "friend_id") }
+    )
+    private List<Friend> friends;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;

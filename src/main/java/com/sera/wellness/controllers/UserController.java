@@ -69,7 +69,7 @@ public class UserController {
     }
 
 
-    @RequestMapping(method = RequestMethod.GET,value = "/signin")
+    @RequestMapping(method = RequestMethod.GET, value = "/signin")
     public String getLoginForm(HttpServletRequest request, ModelMap model)
     {
         if(request.getParameter("error") !=null) {
@@ -110,8 +110,6 @@ public class UserController {
             return "redirect:/signin";
         }
         User user = (User) authentication.getPrincipal();
-        System.out.println(user);
-        System.out.println(password);
         String fileName = user.getId()+photo.hashCode()+photo.getOriginalFilename();
         String fileDir = "src/main/resources/static/users.profile.img/" + fileName;
 
@@ -167,6 +165,32 @@ public class UserController {
 
         return "redirect:/articles";
     }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/addToFriend")
+    public String addToFriend(Authentication authentication)
+    {
+        if (authentication ==null) {
+            return "redirect:/signin";
+        }
+        User user = (User) authentication.getPrincipal();
+
+        return "signin";
+    }
+    @RequestMapping(method = RequestMethod.GET, value = "/myFriends")
+    public String getAllMyFriends(Authentication authentication, ModelMap modelMap)
+    {
+        if (authentication ==null) {
+            return "redirect:/signin";
+        }
+        User user = (User) authentication.getPrincipal();
+
+        modelMap.addAttribute("friends", service.getFriends(user.getId()));
+        modelMap.addAttribute("getUser", user);
+
+        return "friends";
+    }
+
+
 
 
 }

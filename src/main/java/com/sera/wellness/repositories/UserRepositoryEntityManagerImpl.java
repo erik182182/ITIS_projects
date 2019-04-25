@@ -1,5 +1,6 @@
 package com.sera.wellness.repositories;
 
+import com.sera.wellness.models.Friend;
 import com.sera.wellness.models.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -62,5 +63,12 @@ public class UserRepositoryEntityManagerImpl implements UserRepository {
     @Override
     public List<User> findAll() {
         return em.createQuery("SELECT a FROM User a").getResultList();
+    }
+
+    @Override
+    public List<Friend> getFriends(Long userId) {
+      List<Friend> friends = em.createQuery("SELECT f FROM Friend f WHERE f.user.id = :userId", Friend.class).setParameter("userId", userId).getResultList();
+      friends.addAll(em.createQuery("SELECT f FROM Friend f WHERE f.friend.id = :userId", Friend.class).setParameter("userId", userId).getResultList());
+      return friends;
     }
 }
