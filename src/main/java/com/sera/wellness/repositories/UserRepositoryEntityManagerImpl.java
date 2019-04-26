@@ -71,4 +71,32 @@ public class UserRepositoryEntityManagerImpl implements UserRepository {
       friends.addAll(em.createQuery("SELECT f FROM Friend f WHERE f.friend.id = :userId", Friend.class).setParameter("userId", userId).getResultList());
       return friends;
     }
+
+    @Override
+    public List<User> findAllByName(String name) {
+        return em.createQuery("SELECT u FROM User u WHERE u.firstName LIKE :name OR u.lastName LIKE :name", User.class).setParameter("name", name + "%").getResultList();
+    }
+
+    @Override
+    public void addToFriend(Long userId, Long friendId) {
+        Query query = em.createNativeQuery("insert into friends(user_id, friend_id) values (:user_id, :friend_id)");
+        query.setParameter("user_id", userId);
+        query.setParameter("friend_id", friendId);
+        query.executeUpdate();
+    }
+
+    @Override
+    public Optional<User> getFriend(Long userId, Long friendId) {
+        Optional<User> userOptional = Optional.empty();
+        List<Friend> friends = em.createQuery("SELECT f FROM Friend f WHERE f.user.id = :userId", Friend.class).setParameter("userId", userId).getResultList();
+        friends.addAll(em.createQuery("SELECT f FROM Friend f WHERE f.friend.id = :userId", Friend.class).setParameter("userId", userId).getResultList());
+
+        for (Friend friend: friends) {
+            if (friend.getFriend().getId().equals(friendId) || friend.getUser().getId().equals(friendId)){
+                userOptional =
+                        Optional.of(em.createQuery("SELECT u FROM User u WHERE u.id = :id", User.class).setParameter("id", friendId).getSingleResult());
+            }
+        }
+        return userOptional;
+    }
 }

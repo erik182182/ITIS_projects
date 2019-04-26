@@ -16,6 +16,9 @@ public interface UserService extends UserDetailsService  {
     void updateUser(UserProfileForm form);
     Optional<User> getThis(Long id);
     List<Friend> getFriends(Long userId);
+    List<User> findAllByName(String name);
+    void addToFriend(Long userId, Long friendId);
+    Optional<User> getFriend(Long userId, Long friendId);
 
 
 }

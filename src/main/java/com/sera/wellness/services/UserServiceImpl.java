@@ -89,4 +89,19 @@ public class UserServiceImpl implements UserService {
     public List<Friend> getFriends(Long userId) {
         return userRepository.getFriends(userId);
     }
+
+    @Override
+    public List<User> findAllByName(String name) {
+        return userRepository.findAllByName(name);
+    }
+
+    @Override
+    public void addToFriend(Long userId, Long friendId) {
+        userRepository.addToFriend(userId, friendId);
+    }
+
+    @Override
+    public Optional<User> getFriend(Long userId, Long friendId) {
+        return userRepository.getFriend(userId, friendId);
+    }
 }
