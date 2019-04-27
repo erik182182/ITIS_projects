@@ -12,6 +12,5 @@ spring.jpa.database-platform=org.hibernate.dialect.PostgreSQL9Dialect
 server.servlet.context-path=/wellness
 spring.jpa.properties.hibernate.enable_lazy_load_no_trans=true
 #spring.jpa.properties.hibernate.id.new_generator_mappings=true
-path.uploads=/home/ernest/Programming/IdeaProjects/ITIS_projects/welness_boot/data
-
-
+path.uploads=C:/server/uploads/
+spring.servlet.multipart.max-file-size=10MB

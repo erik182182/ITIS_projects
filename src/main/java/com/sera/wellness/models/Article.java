@@ -5,12 +5,12 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.List;
 
-@Data
+
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = {"comments", "mainImg"})
-@ToString(exclude = {"comments", "mainImg"})
 @Entity(name = "Article")
 @Table(name = "article")
 public class Article {

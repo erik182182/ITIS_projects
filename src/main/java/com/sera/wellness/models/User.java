@@ -12,12 +12,12 @@ import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.List;
 
-@Data
+
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = {"createdArticles", "favoriteArticles", "uploadedFile"})
-@ToString(exclude = {"createdArticles", "favoriteArticles", "uploadedFile"})
 @Entity(name = "User")
 @Table(name = "simple_user")
 public class User implements UserDetails {
@@ -44,6 +44,17 @@ public class User implements UserDetails {
     private List<Article> favoriteArticles;
 
     private String photoSrc;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "friends",
+            joinColumns = { @JoinColumn(name = "user_id") },
+            inverseJoinColumns = { @JoinColumn(name = "friend_id") }
+    )
+    private List<Friend> friends;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Comment> comments;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
