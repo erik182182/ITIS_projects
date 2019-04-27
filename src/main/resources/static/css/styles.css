@@ -220,8 +220,26 @@ div.article .carousel-item:hover{
 	color: #339900;
 }
 
+.back-button:hover{
+	color: #1a7f0c;
+	transition: 0.3s ease-in-out;
+	text-decoration: none;
+}
+
 div.article img{
 	border-radius: 15px;
+}
+
+.star-rating__input{
+    display: none;
+}
+.star-rating__ico{
+    float: right;
+}
+.star-rating__ico:hover:before,
+.star-rating__ico:hover ~ .star-rating__ico:before{
+    content: "\f005";
+    color: gold;
 }
 
 @keyframes opening {

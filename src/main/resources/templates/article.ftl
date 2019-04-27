@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <title>Wellness - лучший сервис для похудения! ${article.title}</title>
     <meta name="keywords" content="Похудение, wellness, здоровье, питание, еда, сервис">
@@ -41,9 +41,30 @@
         </div>
       </div>
     </div>
-    <p>
+    <p style="margin-bottom: 10%;">
     ${article.text}
     </p>
 </div>
+<nav class="navbar navbar-light bg-light fixed-bottom py-1">
+    <p><span style="font-weight: bold;">Автор:</span> ${article.user.firstName} ${article.user.lastName}</p>
+    <form method="post" action="${springMacroRequestContext.contextPath}/articles/${article.id}/evaluate">
+        <div class="star-rating">
+            <div class="star-rating__wrap">
+                <input class="star-rating__input" id="star-rating-5" type="submit" name="grade" value="5">
+                <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-5" title="5 из 5"></label>
+                <input class="star-rating__input" id="star-rating-4" type="submit" name="grade" value="4">
+                <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-4" title="4 из 5"></label>
+                <input class="star-rating__input" id="star-rating-3" type="submit" name="grade" value="3">
+                <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-3" title="3 из 5"></label>
+                <input class="star-rating__input" id="star-rating-2" type="submit" name="grade" value="2">
+                <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-2" title="2 из 5"></label>
+                <input class="star-rating__input" id="star-rating-1" type="submit" name="grade" value="1">
+                <label class="star-rating__ico fa fa-star-o fa-lg" for="star-rating-1" title="1 из 5"></label>
+                <label style="float: right; font-weight: bold;">Оценить статью:</label>
+            </div>
+        </div>
+    </form>
+</nav>
+
 </body>
 </html>

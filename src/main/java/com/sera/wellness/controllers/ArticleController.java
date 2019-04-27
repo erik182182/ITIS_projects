@@ -113,7 +113,7 @@ public class ArticleController {
         return "redirect:/articles/"+commentForm.getArticleId();
     }
     @PostMapping("/{id}/evaluate")
-    public String evaluate(@RequestParam Short grade ,@PathVariable("id") Long articleId ,Authentication authentication ,ModelMap modelMap) {
+    public String evaluate(@RequestParam("grade") Short grade ,@PathVariable("id") Long articleId ,Authentication authentication ,ModelMap modelMap) {
         if (authentication ==null) {
             return "redirect:/signin";
         }
