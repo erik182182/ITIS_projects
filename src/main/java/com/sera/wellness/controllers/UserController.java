@@ -1,9 +1,7 @@
 package com.sera.wellness.controllers;
 
 import com.sera.wellness.forms.UserProfileForm;
-import com.sera.wellness.models.Friend;
-import com.sera.wellness.models.UploadedFile;
-import com.sera.wellness.models.User;
+import com.sera.wellness.models.*;
 import com.sera.wellness.services.UserService;
 import com.sera.wellness.forms.UserRegistrationForm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -228,23 +226,77 @@ public class UserController {
         return "friend";
     }
 
-    @RequestMapping(path = "myFriends/{id}",method = RequestMethod.GET)
+    @RequestMapping(path = "dialogs/{id}",method = RequestMethod.GET)
     public String messages(@PathVariable Long id, ModelMap modelMap,Authentication authentication) {
         if (authentication==null) {
             return "redirect:/signin";
         }
         User user = (User) authentication.getPrincipal();
+        modelMap.addAttribute("getUser", user);
+
         try{
-            User friend = service.getFriend(user.getId(), id).get();
-            if (friend!=null) {
-                modelMap.addAttribute("friend", friend);
+            List<Message> messages = service.getMessagesByDialogId(id);
+            for (Message message: messages) {
+                for (User userToCheck: message.getDialog().getUsers())
+                if (userToCheck.getId().equals(user.getId())){
+                    modelMap.addAttribute("messages", messages);
+                }
             }
-            modelMap.addAttribute("user", user);
         }
         catch (IllegalArgumentException e){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
         return "messages";
+    }
+
+    @RequestMapping(path = "dialogs",method = RequestMethod.GET)
+    public String messages(ModelMap modelMap,Authentication authentication) {
+        if (authentication==null) {
+            return "redirect:/signin";
+        }
+        User user = (User) authentication.getPrincipal();
+
+        try{
+            List<Dialog> dialogs = user.getDialogs();
+            modelMap.addAttribute("dialogs", dialogs);
+        }
+        catch (IllegalArgumentException e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
+        return "dialogs";
+    }
+
+    @RequestMapping(path = "dialogs/{id}",method = RequestMethod.POST)
+    public String sendMessage(@PathVariable Long id, ModelMap modelMap, Authentication authentication, @RequestParam(value = "message") String messageText) throws InterruptedException {
+        if (authentication==null) {
+            return "redirect:/signin";
+        }
+        User user = (User) authentication.getPrincipal();
+
+
+        modelMap.addAttribute("getUser", user);
+        Message newMessage = Message.builder()
+                .dialog(service.getDialog(id).get())
+                .text(messageText)
+                .user(user)
+                .build();
+        user.getMessages().add(newMessage);
+        service.updateUser(user);
+
+        try{
+            List<Message> messages = service.getMessagesByDialogId(id);
+            for (Message message: messages) {
+                for (User userToCheck: message.getDialog().getUsers())
+                    if (userToCheck.getId().equals(user.getId())){
+                        modelMap.addAttribute("messages", messages);
+                    }
+            }
+        }
+        catch (IllegalArgumentException e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
+
+        return "redirect:/dialogs/"+id;
     }
 
 

@@ -53,6 +53,17 @@ public class User implements UserDetails {
     )
     private List<Friend> friends;
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "users_dialogs",
+            joinColumns = { @JoinColumn(name = "id_user", referencedColumnName = "id") },
+            inverseJoinColumns = { @JoinColumn(name = "id_dialog", referencedColumnName = "id") }
+    )
+    private List<Dialog> dialogs;
+
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "user")
+    private List<Message> messages;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Comment> comments;
 
