@@ -226,8 +226,27 @@ public class UserController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
         return "friend";
-
     }
+
+    @RequestMapping(path = "myFriends/{id}",method = RequestMethod.GET)
+    public String messages(@PathVariable Long id, ModelMap modelMap,Authentication authentication) {
+        if (authentication==null) {
+            return "redirect:/signin";
+        }
+        User user = (User) authentication.getPrincipal();
+        try{
+            User friend = service.getFriend(user.getId(), id).get();
+            if (friend!=null) {
+                modelMap.addAttribute("friend", friend);
+            }
+            modelMap.addAttribute("user", user);
+        }
+        catch (IllegalArgumentException e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
+        return "messages";
+    }
+
 
 
 
