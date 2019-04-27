@@ -11,7 +11,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -92,7 +94,7 @@ public class UserController {
             return "redirect:/signin";
         }
         User user = (User) authentication.getPrincipal();
-        user = service.getThis(user.getId()).get();
+//        user = service.getThis(user.getId()).get();
 
         modelMap.addAttribute("getUser", user);
         return "profile";
@@ -129,7 +131,7 @@ public class UserController {
 //                return "Вам не удалось загрузить " + name + " => " + e.getMessage();
             }
         } else {
-//            return "Вам не удалось загрузить " + name + " потому что файл пустой.";
+            fileName = user.getPhotoSrc();
         }
 
         if (password.length()==0){
@@ -165,8 +167,14 @@ public class UserController {
                 .purposeWeight(purposeWeight)
                 .build();
         service.updateUser(userToSave);
+            }else {
+
             }
         }
+
+        user = service.getThis(user.getId()).get();
+        authentication = new UsernamePasswordAuthenticationToken(user, user.getPassword(), user.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
 
         return "redirect:/articles";
     }

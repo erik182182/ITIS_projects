@@ -44,7 +44,7 @@
             <label for="email">E-mail</label>
             <input type="email" id="email" placeholder="email" value="${getUser.email}" disabled>
             <label for="password">Password</label>
-            <input type="password" name="password" id="password" placeholder="придумайте пароль">
+            <input type="password" name="password" id="password" placeholder="придумайте пароль" value="">
             <label for="repassword">Repassword</label>
             <input type="password" name="repeat_password" id="repassword" placeholder="повторите пароль">
             <label for="subscription">
