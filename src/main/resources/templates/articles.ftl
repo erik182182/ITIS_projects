@@ -6,7 +6,7 @@
 	<meta name="description" content="Wellness - лучший сервис для похудения! С его помощью вы быстро и легко достигните своей цели!">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-	<link href="https://fonts.googleapis.com/css?family=Damion|Dancing+Script|Oswald|Caveat" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Damion|Dancing+Script|Oswald|Caveat|Roboto+Condensed" rel="stylesheet">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
 
@@ -49,70 +49,65 @@
  	</div>
  </div>
  </div>
-<#list articles as article>
-	<#if article_index%3!=0>
-	    <#continue>
-	</#if>
-  <div class="container articles my-5">
-      <div class="row justify-content-end">
-          <div class="col-5">
-              <div class="card" style="width: 100%;">
-                  <a class="article-link" href="${springMacroRequestContext.contextPath}/articles/${article.id}">
-				  <img src="${springMacroRequestContext.contextPath}/server.img/loginback.jpg" class="card-img-top" alt="img">
-                  </a>
-				  <div class="card-body">
-				  <h5 class="card-title">${article.title}</h5>
-				  <p class="card-text">${article.text}</p>
-				  <form method="post" action="${springMacroRequestContext.contextPath}/articles/addfavorite">
-					  <button type="submit" class="btn addfavorite" title="В избранное"><i class="fa fa-heart ml-5"></i></button>
-				  </form>
+<div class="container articles">
+  <#list articles as article>
+  <#if article_index%3!=0>
+      <#continue>
+  </#if>
+  <div class="row justify-content-end mb-3">
+    <div class="carousel slide col-5 article" data-ride="carousel">
+        <div class="carousel-inner">
+            <a class="article-link" href="${springMacroRequestContext.contextPath}/articles/${article.id}">
+          <div class="carousel-item active d-block w-100">
 
-                  </div>
+              <img src="${springMacroRequestContext.contextPath}/server.img/loginback.jpg" class="d-block w-100" >
+
+              <div class="carousel-caption d-none d-md-block">
+                  <h5>${article.title}</h5>
+                  <p class="article-text">${article.text}</p>
               </div>
           </div>
-          </a>
-		  <#if !article_has_next>
-		      <#break>
-		  </#if>
-          <div class="col-5">
-              <div class="card" style="width: 100%;">
-                  <a class="article-link" href="${springMacroRequestContext.contextPath}/articles/${articles[article_index + 1].id}">
-				  <img src="${springMacroRequestContext.contextPath}/server.img/mainback.jpg" class="card-img-top" alt="img">
-                  </a>
-					  <div class="card-body">
-                      <h5 class="card-title">${articles[article_index + 1].title}</h5>
-                      <p class="card-text">${articles[article_index + 1].text}</p>
-                      <form method="post" action="${springMacroRequestContext.contextPath}/articles/addfavorite">
-                          <button type="submit" class="btn addfavorite" title="В избранное"><i class="fa fa-heart ml-5"></i></button>
-                      </form>
-
-                  </div>
-              </div>
-          </div>
-      </div>
-
-	  <#if !articles[article_index+2]??>
-		  <#break>
-	  </#if>
-    <div class="row justify-content-end">
-        <div class="col-10">
-            <div class="card" style="width: 100%;">
-                <a class="article-link" href="${springMacroRequestContext.contextPath}/articles/${articles[article_index + 2].id}">
-                <img src="${springMacroRequestContext.contextPath}/server.img/regback.jpg" class="card-img-top" alt="img">
-				</a>
-                <div class="card-body">
-                    <h5 class="card-title">${articles[article_index + 2].title}</h5>
-                    <p class="card-text">${articles[article_index + 2].text}</p>
-                    <form method="post" action="${springMacroRequestContext.contextPath}/articles/addfavorite">
-                        <button type="submit" class="btn addfavorite" title="В избранное"><i class="fa fa-heart ml-5"></i></button>
-                    </form>
-
-                </div>
-            </div>
+            </a>
         </div>
-	</div>
+    </div>
+      <#if !article_has_next>
+      </div>
+          <#break>
+      </#if>
+     <div class="carousel slide col-5 article" data-ride="carousel">
+        <div class="carousel-inner">
+            <a class="article-link" href="${springMacroRequestContext.contextPath}/articles/${articles[article_index + 1].id}">
+            <div class="carousel-item active">
+              <img src="${springMacroRequestContext.contextPath}/server.img/regback.jpg" class="d-block w-100">
+              <div class="carousel-caption d-none d-md-block">
+                  <h5>${articles[article_index + 1].title}</h5>
+                  <p class="article-text">${articles[article_index + 1].text}</p>
+              </div>
+            </div>
+            </a>
+        </div>
+      </div>
+   </div>
+  <#if !articles[article_index + 2]??>
+        </div>
+          <#break>
+      </#if>
+  <div class="row justify-content-end mb-3">
+    <div class="carousel slide col-10 article" data-ride="carousel">
+        <div class="carousel-inner">
+            <a class="article-link" href="${springMacroRequestContext.contextPath}/articles/${articles[article_index + 2].id}">
+            <div class="carousel-item active">
+              <img src="${springMacroRequestContext.contextPath}/server.img/loginback.jpg" class="d-block w-100">
+              <div class="carousel-caption d-none d-md-block">
+                  <h5>${articles[article_index + 2].title}</h5>
+                  <p class="article-text">${articles[article_index + 2].text}</p>
+              </div>
+            </div>
+            </a>
+        </div>
+    </div>
   </div>
 </#list>
-
+</div>
 </body>
 </html>
