@@ -191,6 +191,39 @@ div.article .carousel-item:hover{
 	transition: 0.4s ease-in-out;
 }
 
+.article-form{
+	margin-top: 6%;
+}
+
+.article-form label{
+	font-weight: bold;
+}
+
+.article-form h2{
+	font-weight: bold;
+	font-size: 3em;
+	font-family: 'Merriweather', serif;
+	word-wrap: break-word;
+}
+
+.article-form p{
+	font-size: 1.7em;
+	text-align: justify;
+	font-family: 'Merriweather', serif;
+	line-height: 180%;
+	word-wrap: break-word;
+
+}
+
+.back-button{
+	font-size: 1.3em;
+	color: #339900;
+}
+
+div.article img{
+	border-radius: 15px;
+}
+
 @keyframes opening {
     0% {
          opacity: 0; 
