@@ -6,7 +6,7 @@
 	<meta name="description" content="Wellness - лучший сервис для похудения! С его помощью вы быстро и легко достигните своей цели!">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-	<link href="https://fonts.googleapis.com/css?family=Damion|Dancing+Script|Oswald|Caveat" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Damion|Dancing+Script|Oswald|Caveat|Roboto+Condensed" rel="stylesheet">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
 
@@ -88,7 +88,8 @@
         </div>
       </div>
    </div>
-  <#if !article_has_next>
+  <#if !articles[article_index + 2]??>
+        </div>
           <#break>
       </#if>
   <div class="row justify-content-end mb-3">

@@ -71,7 +71,8 @@
         </div>
     </div>
       <#if !article_has_next>
-      </div>          <#break>
+          </div>
+          <#break>
       </#if>
       <div class="carousel slide col-5 article" data-ride="carousel">
           <div class="carousel-inner">
@@ -87,7 +88,8 @@
           </div>
       </div>
   </div>
-  <#if !article_has_next>
+  <#if !articles[article_index + 2]??>
+      </div>
       <#break>
   </#if>
       <div class="row justify-content-end mb-3">

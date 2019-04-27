@@ -26,7 +26,7 @@ nav.main{
 nav.main .navbar-collapse li.non-active a.nav-link{
 	font-size: 2.5em;
 	color: #ccc;
-	font-family: 'Caveat', cursive;
+	font-family: 'Oswald', sans-serif;
 }
 nav.main .navbar-collapse li.non-active a.nav-link:hover{
 	color: #eee;
@@ -36,7 +36,7 @@ nav.main .navbar-collapse li.non-active a.nav-link:hover{
 nav.main .navbar-collapse li.active a.nav-link{
 	font-size: 2.5em;
 	color: white;
-	font-family: 'Caveat', cursive;
+	font-family: 'Oswald', sans-serif;
 }
 
 nav.auth{
