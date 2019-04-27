@@ -9,22 +9,20 @@
     <link href="https://fonts.googleapis.com/css?family=Damion|Dancing+Script|Oswald|Caveat" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
-
+    <link href="${springMacroRequestContext.contextPath}/server.img/logo.png" rel="icon" type="image/x-icon" />
     <link rel="stylesheet" type="text/css" href="${springMacroRequestContext.contextPath}/css/styles.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-<div class="container">
-    <div class="row">
-        <nav class="navbar navbar-expand navbar-light bg-light fixed-top">
+<nav class="navbar navbar-expand navbar-light bg-light fixed-top">
             <a class="navbar-brand" href="${springMacroRequestContext.contextPath}/articles" >
                 <i class="fa fa-reply back-button"></i>
                 <span class="back-button ml-3" >Назад</span>
             </a>
         </nav>
-    </div>
-    <div class="row justify-content-center my-5" style="margin-top: 10%;">
+<div class="container article-form" >
+    <div class="row justify-content-center">
         <form method="post" class="col-10" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="title">Введите заголовок статьи:</label>
@@ -42,7 +40,6 @@
         </form>
     </div>
 </div>
-
 </body>
 </html>
 
