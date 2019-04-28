@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 @Repository
 public interface ProductSpringDataRepository extends JpaRepository<Product,Long> {
-    @Query("select p from Product p where p.user.id = ?1 OR  null ")
+    @Query("select p from Product p where p.user.id = ?1 OR  p.user = null")
     List<Product> findAllToUser(Long userId);
 }

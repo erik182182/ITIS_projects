@@ -30,4 +30,19 @@ public class Article {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "main_img")
     private UploadedFile mainImg;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Article article = (Article) o;
+
+        return id != null ? id.equals(article.id) : false;
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
 }

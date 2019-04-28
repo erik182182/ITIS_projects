@@ -5,8 +5,9 @@ import com.sera.wellness.models.Product;
 import com.sera.wellness.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 public interface EatenProductSpringDataRepository extends JpaRepository<EatenProduct,Long> {
-    boolean existsByProductAndUserAndDate(Product product, User user, LocalDate date);
+    boolean existsByProductAndUserAndDate(Product product, User user, Date date);
 }

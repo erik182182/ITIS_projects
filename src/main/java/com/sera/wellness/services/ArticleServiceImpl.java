@@ -82,6 +82,9 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public Boolean addFavoriteArticle(Long articleId, User user) {
+        if (user.getFavoriteArticles().contains(Article.builder().id(articleId).build())){
+            return false;
+        }
         user.getFavoriteArticles().add(articleRepository.findOne(articleId).get());
         userRepository.update(user);
         return true;

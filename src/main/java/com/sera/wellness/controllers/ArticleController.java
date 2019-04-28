@@ -98,7 +98,7 @@ public class ArticleController {
             return "redirect:/signin";
         }
         User user = (User) authentication.getPrincipal();
-        service.addFavoriteArticle(articleId, user);
+        modelMap.addAttribute("added",service.addFavoriteArticle(articleId, user));
         return "redirect:/articles/favorite";
     }
     @PostMapping("/addComment")
