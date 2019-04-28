@@ -100,6 +100,9 @@ public class ArticleServiceImpl implements ArticleService {
     }
     @Override
     public void evaluate(Long userId,Long articleId,Short grade) {
+        if (grade < 1 || grade > 5) {
+            throw new IllegalArgumentException("Grade's range is {1,5}");
+        }
         articleRepository.evaluate(userId,articleId,grade);
     }
     @Override
