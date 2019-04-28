@@ -207,7 +207,8 @@ public class UserController {
         }
         User user = (User) authentication.getPrincipal();
         try {
-            User friend = service.getFriend(user.getId(), id).get();
+            User friend = service.getFriend
+                    (user.getId(), id).get();
             if (friend != null) {
                 modelMap.addAttribute("friend", friend);
             }

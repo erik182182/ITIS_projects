@@ -87,6 +87,7 @@ public class ArticleRepositoryEntityManagerImpl implements ArticleRepository {
         Query query = em.createNativeQuery("select avg(grade) from grades where article_id=:id");
         query.setParameter("id",articleId);
         Number number = (Number) query.getSingleResult();
-       return number.floatValue();
+
+       return number == null ? null : number.floatValue();
     }
 }

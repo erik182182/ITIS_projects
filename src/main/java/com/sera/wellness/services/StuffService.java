@@ -15,6 +15,7 @@ public class StuffService {
                 .append(now.getHour())
                 .append(now.getMinute())
                 .append(now.getSecond())
+                .append("uuu")//потому что из-за секунд уникальность может сломаться
                 .append(userId);
         return result.toString();
     }

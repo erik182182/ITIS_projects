@@ -11,6 +11,7 @@ import com.sera.wellness.repositories.CommentRepository;
 import com.sera.wellness.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
+import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -36,16 +37,28 @@ public class ArticleServiceImpl implements ArticleService {
     private CommentRepository commentRepository;
     @Autowired
     private ServletContext servletContext;
+    @Autowired
+    private Environment environment;
 
     public List<Article> getAll() {
         List<Article> articles = articleRepository.findAll();
+        for (int i = 0; i < articles.size(); i++) {
+            Article article = articles.get(i);
+            if (article.getMainImg() != null) {
+                article.getMainImg().setFileName("/uploads/" + article.getMainImg().getFileName());
+            }
+        }
         return articles;
     }
 
     public Article getArticle(Long id) {
         Optional<Article> articleCandidate = articleRepository.findOne(id);
         if (articleCandidate.isPresent()) {
-            return articleCandidate.get();
+            Article article = articleCandidate.get();
+            if (article.getMainImg() != null) {
+                article.getMainImg().setFileName("/uploads/" + article.getMainImg().getFileName());
+            }
+            return article;
         } else {
             throw new IllegalArgumentException("Такой статьи не существует.");
         }
@@ -63,9 +76,9 @@ public class ArticleServiceImpl implements ArticleService {
         //System.out.println(form.getFile().getOriginalFilename());
         String[] tmp = form.getFile().getOriginalFilename().split("\\.");
         String type = tmp[tmp.length - 1];
-        String fileName = "uploads/" + StuffService.generateUniqueFileNameForUsersUploads("imgarticles", user.getId())
+        String fileName = StuffService.generateUniqueFileNameForUsersUploads("imgarticles", user.getId())
                 + "." + type;
-        File file = new File("C:/server/uploads/" + fileName);
+        File file = new File(environment.getProperty("path.uploads") + fileName);
         System.out.println(file.getAbsolutePath().toString());
         try {
             if (file.createNewFile()) {

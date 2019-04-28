@@ -48,7 +48,7 @@ public class ArticleController {
                 modelMap.addAttribute("isFavorite", user.getFavoriteArticles().contains(article)); //избранная?
                 modelMap.addAttribute("avgGrade",service.getAvgGrade(id));
             }
-            //System.out.println(article.getMainImg());
+            System.out.println(article.getMainImg());
             modelMap.addAttribute("article", article);
         } catch (IllegalArgumentException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
