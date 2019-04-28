@@ -169,6 +169,11 @@ div.button-list a:hover{
 	animation: opening 3s cubic-bezier(0.250, 0.460, 0.450, 0.940) forwards;
 }
 
+.articles h3{
+	font-weight: bold;
+	font-family: 'Merriweather', serif;
+}
+
 .articles .article{
 	height: 100%;
 }
@@ -178,11 +183,12 @@ div.button-list a:hover{
 	opacity: 0.6;
 }
 
-.article p.article-text{
+.article h3{
 	white-space: pre;
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
+
 
 div.article .carousel-item{
 	width: 100%;

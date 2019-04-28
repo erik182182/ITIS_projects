@@ -43,9 +43,10 @@ public class ArticleController {
         try{
             Article article = service.getArticle(id);
             if (user!=null) {
+                modelMap.addAttribute("user", user);
                 modelMap.addAttribute("usersGrade", service.getUsersGrade(user.getId(), id));//оценка если есть
+                modelMap.addAttribute("isFavorite",user.getFavoriteArticles().contains(article)); //избранная?
             }
-            modelMap.addAttribute("isFovorite",user.getFavoriteArticles().contains(article)); //избранная?
             //System.out.println(article.getMainImg());
             modelMap.addAttribute("article", article);
         }

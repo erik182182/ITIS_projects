@@ -28,9 +28,16 @@
             </#if>
             
         </span>
-        <input type="hidden" value="${article.id}" name="article_id">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fa fa-heart"></i> В избранное</button>
-    </form>
+        <#if user??>
+            <#if isFavorite>
+                <input type="hidden" value="${article.id}" name="article_id">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fa fa-heart-o"></i> Убрать из избранного</button>
+            <#else>
+                <input type="hidden" value="${article.id}" name="article_id">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fa fa-heart"></i> В избранное</button>
+            </#if>
+        </#if>
+           </form>
 </nav>
 <div class="container article col-lg-10 article-form">
     <h2>${article.title}</h2>

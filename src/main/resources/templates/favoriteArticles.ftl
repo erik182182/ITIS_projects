@@ -63,8 +63,7 @@
                     <img src="${springMacroRequestContext.contextPath}/server.img/loginback.jpg" class="d-block w-100" >
 
                     <div class="carousel-caption d-none d-md-block">
-                        <h5>${article.title}</h5>
-                        <p class="article-text">${article.text}</p>
+                        <h3>${article.title}</h3>
                     </div>
                 </div>
             </a>
@@ -80,8 +79,7 @@
                   <div class="carousel-item active">
                       <img src="${springMacroRequestContext.contextPath}/server.img/regback.jpg" class="d-block w-100">
                       <div class="carousel-caption d-none d-md-block">
-                          <h5>${articles[article_index + 1].title}</h5>
-                          <p class="article-text">${articles[article_index + 1].text}</p>
+                          <h3>${articles[article_index + 1].title}</h3>
                       </div>
                   </div>
               </a>
@@ -99,8 +97,7 @@
                       <div class="carousel-item active">
                           <img src="${springMacroRequestContext.contextPath}/server.img/loginback.jpg" class="d-block w-100">
                           <div class="carousel-caption d-none d-md-block">
-                              <h5>${articles[article_index + 2].title}</h5>
-                              <p class="article-text">${articles[article_index + 2].text}</p>
+                              <h3>${articles[article_index + 2].title}</h3>
                           </div>
                       </div>
                   </a>
