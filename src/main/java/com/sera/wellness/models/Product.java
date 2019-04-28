@@ -25,4 +25,7 @@ public class Product {
             carbohydrates,
             calories;
     private Boolean type;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }

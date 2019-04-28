@@ -60,6 +60,7 @@ public class ArticleRepositoryEntityManagerImpl implements ArticleRepository {
         return  em.createQuery("SELECT a FROM Article a").getResultList();
     }
     @Override
+    @Transactional
     public void evaluate(Long userId,Long articleId,Short grade) {
         Query query = em.createNativeQuery("insert into grades(user_id, article_id, grade) values (:user_id, :article_id, :grade)");
         query.setParameter("user_id",userId);

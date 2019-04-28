@@ -31,26 +31,22 @@ import java.util.List;
 @Controller
 public class UserController {
     @Autowired
-    private HttpSession session;
-    @Autowired
     private UserService service;
-    @Autowired
-    private ApplicationContext context;
 
-    @RequestMapping(method = RequestMethod.GET,value = "/signup")
-    public String getForm(ModelMap model){
+    @RequestMapping(method = RequestMethod.GET, value = "/signup")
+    public String getForm(ModelMap model) {
         return "signup";
     }
 
-    @RequestMapping(method = RequestMethod.POST,value = "/signup")
+    @RequestMapping(method = RequestMethod.POST, value = "/signup")
     public String trySave(@RequestParam(value = "email") String email,
-          @RequestParam(value = "first_name") String firstName,
-          @RequestParam(value = "last_name") String lastName,
-          @RequestParam(value = "password") String password,
-          @RequestParam(value = "repeat_password") String repeatPassword,
-          @RequestParam(value = "consent_emails", required = false) boolean consentToReceiveEmails,
-          @RequestParam(value = "consent_data") boolean consentToTheProcessingPersonalData,
-          @RequestParam(value = "sex") String sex,
+                          @RequestParam(value = "first_name") String firstName,
+                          @RequestParam(value = "last_name") String lastName,
+                          @RequestParam(value = "password") String password,
+                          @RequestParam(value = "repeat_password") String repeatPassword,
+                          @RequestParam(value = "consent_emails", required = false) boolean consentToReceiveEmails,
+                          @RequestParam(value = "consent_data") boolean consentToTheProcessingPersonalData,
+                          @RequestParam(value = "sex") String sex,
                           ModelMap model) {
         UserRegistrationForm form = UserRegistrationForm.builder()
                 .email(email)
@@ -62,41 +58,39 @@ public class UserController {
                 .consentToTheProcessingOfPersonalData(consentToTheProcessingPersonalData)
                 .sex(sex)
                 .build();
-                try{
-                    service.signUp(form);
+        try {
+            service.signUp(form);
 
-                    return "redirect:/signin";
-                }
-                catch (IllegalArgumentException e){
-                    model.addAttribute("error", e.getMessage());
-                    return "signup";
-                }
+            return "redirect:/signin";
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("error", e.getMessage());
+            return "signup";
+        }
     }
 
 
     @RequestMapping(method = RequestMethod.GET, value = "/signin")
-    public String getLoginForm(HttpServletRequest request, ModelMap model)
-    {
-        if(request.getParameter("error") !=null) {
-            model.addAttribute("error","Неправильный логин или пароль");
+    public String getLoginForm(HttpServletRequest request, ModelMap model) {
+        if (request.getParameter("error") != null) {
+            model.addAttribute("error", "Неправильный логин или пароль");
         }
         return "signin";
     }
 
 
-
-
     @RequestMapping(method = RequestMethod.GET, value = "/profile")
-    public String webFlow(ModelMap modelMap, Authentication authentication){
-        if (authentication ==null) {
+    public String webFlow(ModelMap modelMap, Authentication authentication) {
+        if (authentication == null) {
             return "redirect:/signin";
         }
+
         User user = (User) authentication.getPrincipal();
 //        user = service.getThis(user.getId()).get();
 
         modelMap.addAttribute("getUser", user);
         return "profile";
     }
+
     @RequestMapping(method = RequestMethod.POST, value = "/profile")
     public String webFlow(
             @RequestParam(value = "firstName") String firstName,
@@ -110,12 +104,12 @@ public class UserController {
             @RequestParam(value = "growth") Integer growth,
             @RequestParam(value = "weight") Integer weight,
             @RequestParam(value = "purposeWeight") Integer purposeWeight,
-            Authentication authentication ){
-        if (authentication ==null) {
+            Authentication authentication) {
+        if (authentication == null) {
             return "redirect:/signin";
         }
         User user = (User) authentication.getPrincipal();
-        String fileName = user.getId()+photo.hashCode()+photo.getOriginalFilename();
+        String fileName = user.getId() + photo.hashCode() + photo.getOriginalFilename();
         String fileDir = "src/main/resources/static/users.profile.img/" + fileName;
 
         if (!photo.isEmpty()) {
@@ -132,40 +126,40 @@ public class UserController {
             fileName = user.getPhotoSrc();
         }
 
-        if (password.length()==0){
+        if (password.length() == 0) {
             UserProfileForm userToSave = UserProfileForm.builder()
-                .id(user.getId())
-                .firstName(firstName)
-                .lastName(lastName)
-                .password(user.getHashPassword())
-                .email(user.getEmail())
-                .consentToReceiveEmails(consentToReceiveEmails)
-                .sex(sex)
-                .age(age)
-                .growth(growth)
-                .weight(weight)
-                .photoSrc(fileName)
-                .purposeWeight(purposeWeight)
-                .build();
-        service.updateUser(userToSave);
-        }else {
-            if (password.equals(repeatPassword)){
+                    .id(user.getId())
+                    .firstName(firstName)
+                    .lastName(lastName)
+                    .password(user.getHashPassword())
+                    .email(user.getEmail())
+                    .consentToReceiveEmails(consentToReceiveEmails)
+                    .sex(sex)
+                    .age(age)
+                    .growth(growth)
+                    .weight(weight)
+                    .photoSrc(fileName)
+                    .purposeWeight(purposeWeight)
+                    .build();
+            service.updateUser(userToSave);
+        } else {
+            if (password.equals(repeatPassword)) {
                 UserProfileForm userToSave = UserProfileForm.builder()
-                .id(user.getId())
-                .firstName(firstName)
-                .lastName(lastName)
-                .password(new BCryptPasswordEncoder().encode(password))
-                .email(user.getEmail())
-                .consentToReceiveEmails(consentToReceiveEmails)
-                .sex(sex)
-                .age(age)
-                .growth(growth)
-                .weight(weight)
-                .photoSrc(fileName)
-                .purposeWeight(purposeWeight)
-                .build();
-        service.updateUser(userToSave);
-            }else {
+                        .id(user.getId())
+                        .firstName(firstName)
+                        .lastName(lastName)
+                        .password(new BCryptPasswordEncoder().encode(password))
+                        .email(user.getEmail())
+                        .consentToReceiveEmails(consentToReceiveEmails)
+                        .sex(sex)
+                        .age(age)
+                        .growth(growth)
+                        .weight(weight)
+                        .photoSrc(fileName)
+                        .purposeWeight(purposeWeight)
+                        .build();
+                service.updateUser(userToSave);
+            } else {
 
             }
         }
@@ -178,19 +172,18 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/addToFriend")
-    public String addToFriend(Authentication authentication)
-    {
-        if (authentication ==null) {
+    public String addToFriend(Authentication authentication) {
+        if (authentication == null) {
             return "redirect:/signin";
         }
         User user = (User) authentication.getPrincipal();
 
         return "signin";
     }
+
     @RequestMapping(method = RequestMethod.GET, value = "/myFriends")
-    public String getAllMyFriends(Authentication authentication, ModelMap modelMap)
-    {
-        if (authentication ==null) {
+    public String getAllMyFriends(Authentication authentication, ModelMap modelMap) {
+        if (authentication == null) {
             return "redirect:/signin";
         }
         User user = (User) authentication.getPrincipal();
@@ -207,20 +200,19 @@ public class UserController {
         return service.findAllByName(name);
     }
 
-    @RequestMapping(path = "myFriends/{id}",method = RequestMethod.GET)
-    public String getFriend(@PathVariable Long id, ModelMap modelMap,Authentication authentication) {
-        if (authentication==null) {
+    @RequestMapping(path = "myFriends/{id}", method = RequestMethod.GET)
+    public String getFriend(@PathVariable Long id, ModelMap modelMap, Authentication authentication) {
+        if (authentication == null) {
             return "redirect:/signin";
         }
         User user = (User) authentication.getPrincipal();
-        try{
+        try {
             User friend = service.getFriend(user.getId(), id).get();
-            if (friend!=null) {
+            if (friend != null) {
                 modelMap.addAttribute("friend", friend);
             }
             modelMap.addAttribute("user", user);
-        }
-        catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
         return "friend";
@@ -298,8 +290,6 @@ public class UserController {
 
         return "redirect:/dialogs/"+id;
     }
-
-
 
 
 
