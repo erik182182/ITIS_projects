@@ -28,6 +28,11 @@ nav.main .navbar-collapse li.non-active a.nav-link{
 	color: #ccc;
 	font-family: 'Oswald', sans-serif;
 }
+
+nav.main .btn{
+    float: right;
+}
+
 nav.main .navbar-collapse li.non-active a.nav-link:hover{
 	color: #eee;
 	transition: 0.2s ease-in-out;

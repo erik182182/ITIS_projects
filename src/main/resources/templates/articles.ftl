@@ -32,6 +32,13 @@
         <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">Лента</a>
       </li>
     </ul>
+
+    <#if user??>
+        <a class="btn btn-light mr-2" href="${springMacroRequestContext.contextPath}/logout">Выход</a>
+    <#else>
+        <a class="btn btn-light mr-2" href="${springMacroRequestContext.contextPath}/signin">Войти</a>
+        <a class="btn btn-light mr-2" href="${springMacroRequestContext.contextPath}/signup">Регистрация</a>
+    </#if>
     
   </div>
 </nav>

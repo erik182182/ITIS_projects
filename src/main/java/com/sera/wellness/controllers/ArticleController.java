@@ -28,6 +28,9 @@ public class ArticleController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String getAll(ModelMap modelMap, Authentication authentication) {
+        if(authentication != null){
+            modelMap.addAttribute("user", authentication.getPrincipal());
+        }
         modelMap.addAttribute("articles",service.getAll());
         return "articles";
     }
