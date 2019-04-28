@@ -57,14 +57,14 @@ public class ArticleServiceImpl implements ArticleService {
                 .text(form.getText())
                 .user(user)
                 .build();
-        if(form.getFile().isEmpty()) {
+        if (form.getFile().isEmpty()) {
             throw new IllegalArgumentException("empty file");
         }
         //System.out.println(form.getFile().getOriginalFilename());
         String[] tmp = form.getFile().getOriginalFilename().split("\\.");
-        String type = tmp[tmp.length-1];
-        String fileName = "uploads/" + StuffService.generateUniqueFileNameForUsersUploads("imgarticles",user.getId())
-                                                                       + "." +type;
+        String type = tmp[tmp.length - 1];
+        String fileName = "uploads/" + StuffService.generateUniqueFileNameForUsersUploads("imgarticles", user.getId())
+                + "." + type;
         File file = new File("C:/server/uploads/" + fileName);
         System.out.println(file.getAbsolutePath().toString());
         try {
@@ -82,7 +82,9 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public Boolean addFavoriteArticle(Long articleId, User user) {
-        if (user.getFavoriteArticles().contains(Article.builder().id(articleId).build())){
+        if (user.getFavoriteArticles().contains(Article.builder().id(articleId).build())) {
+            user.getFavoriteArticles().remove(Article.builder().id(articleId).build());
+            userRepository.update(user);
             return false;
         }
         user.getFavoriteArticles().add(articleRepository.findOne(articleId).get());
@@ -98,15 +100,28 @@ public class ArticleServiceImpl implements ArticleService {
                 .user(User.builder().id(userId).build())
                 .build());
     }
+
     @Override
-    public void evaluate(Long userId,Long articleId,Short grade) {
+    public void evaluate(Long userId, Long articleId, Short grade) {
         if (grade < 1 || grade > 5) {
             throw new IllegalArgumentException("Grade's range is {1,5}");
         }
-        articleRepository.evaluate(userId,articleId,grade);
+        if (articleRepository.getUsersGrade(userId, articleId) == null) {
+            articleRepository.evaluate(userId, articleId, grade);
+        } else {
+            articleRepository.revaluate(userId, articleId, grade);
+        }
     }
+
     @Override
-    public Short getUsersGrade(Long userId,Long articleId) {
-        return articleRepository.getUsersGrade(userId,articleId);
+    public Short getUsersGrade(Long userId, Long articleId) {
+        return articleRepository.getUsersGrade(userId, articleId);
     }
+
+    @Override
+    public Float getAvgGrade(Long articleId) {
+        return articleRepository.getAvgGrade(articleId);
+    }
+
+
 }

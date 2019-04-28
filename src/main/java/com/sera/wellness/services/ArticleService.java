@@ -16,5 +16,5 @@ public interface ArticleService {
     public void addComment(CommentForm commentForm,Long userId);
     public Short getUsersGrade(Long userId,Long articleId);
     public void evaluate(Long userId,Long articleId,Short grade);
-
+    public Float getAvgGrade(Long articleId);
 }

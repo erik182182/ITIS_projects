@@ -42,4 +42,9 @@ public class FoodServiceImpl implements FoodService {
         }
     }
 
+    @Override
+    public List<Product> getAllPersonalProducts(User user) {
+        return productRepository.findAllPersonalByUserId(user.getId());
+    }
+
 }

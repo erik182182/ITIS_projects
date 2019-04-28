@@ -9,5 +9,5 @@ public interface FoodService {
     List<Product> getAllProductsToUser(User user);
     void addPersonalProduct(Product personalProduct);
     boolean addEatenProducr(EatenProduct eatenProduct);
-    
+    List<Product> getAllPersonalProducts(User user);
 }

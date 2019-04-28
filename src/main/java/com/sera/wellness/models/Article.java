@@ -25,8 +25,6 @@ public class Article {
     private User user;
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "article")
     private List<Comment> comments;
-    @Transient
-    private Float averageGrade;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "main_img")
     private UploadedFile mainImg;

@@ -23,7 +23,7 @@ public class FoodController {
             return "redirect:/signin";
         }
         User user = (User) authentication.getPrincipal();
-        modelMap.addAttribute("personalProducts",foodService.getAllProductsToUser(user));
+        modelMap.addAttribute("personalProducts",foodService.getAllPersonalProducts(user));
         return "personalProducts";
     }
 
@@ -36,5 +36,13 @@ public class FoodController {
         //foodService.addPersonalProduct(Product.builder().build());
         return "redirect:/mypersonalproducts";
     }
-
+    @GetMapping("/eatentoday")
+    public String getEatenProduct(ModelMap modelMap,Authentication authentication) {
+        if (authentication == null) {
+            return "redirect:/signin";
+        }
+        User user = (User) authentication.getPrincipal();
+        //foodService.
+        return "aaa";
+    }
 }

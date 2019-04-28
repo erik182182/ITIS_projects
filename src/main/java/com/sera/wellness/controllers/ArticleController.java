@@ -19,66 +19,64 @@ import org.springframework.web.server.ResponseStatusException;
 @Controller
 @RequestMapping("/articles")
 public class ArticleController {
-   /* @Autowired
-    private HttpSession session;*/
+    /* @Autowired
+     private HttpSession session;*/
     @Autowired
     private ArticleService service;
 
 
     @RequestMapping(method = RequestMethod.GET)
     public String getAll(ModelMap modelMap, Authentication authentication) {
-        if(authentication != null){
+        if (authentication != null) {
             modelMap.addAttribute("user", authentication.getPrincipal());
         }
-        modelMap.addAttribute("articles",service.getAll());
+        modelMap.addAttribute("articles", service.getAll());
         return "articles";
     }
 
-    @RequestMapping(path = "/{id}",method = RequestMethod.GET)
-    public String getArticle(@PathVariable Long id, ModelMap modelMap,Authentication authentication) {
+    @RequestMapping(path = "/{id}", method = RequestMethod.GET)
+    public String getArticle(@PathVariable Long id, ModelMap modelMap, Authentication authentication) {
         User user = null;
-        if (authentication!=null) {
+        if (authentication != null) {
             user = (User) authentication.getPrincipal();
         }
-        try{
+        try {
             Article article = service.getArticle(id);
-            if (user!=null) {
+            if (user != null) {
                 modelMap.addAttribute("user", user);
                 modelMap.addAttribute("usersGrade", service.getUsersGrade(user.getId(), id));//оценка если есть
-                modelMap.addAttribute("isFavorite",user.getFavoriteArticles().contains(article)); //избранная?
+                modelMap.addAttribute("isFavorite", user.getFavoriteArticles().contains(article)); //избранная?
+                modelMap.addAttribute("avgGrade",service.getAvgGrade(id));
             }
             //System.out.println(article.getMainImg());
             modelMap.addAttribute("article", article);
-        }
-        catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
         return "article";
     }
 
     @RequestMapping(path = "add", method = RequestMethod.GET)
-    public String getArticleForm(ModelMap modelMap, Authentication authentication){
-        if (authentication ==null) {
+    public String getArticleForm(ModelMap modelMap, Authentication authentication) {
+        if (authentication == null) {
             return "redirect:/signin";
         }
         return "addArticle";
     }
 
 
-
-
-    @RequestMapping(path = "add",method = RequestMethod.POST)
+    @RequestMapping(path = "add", method = RequestMethod.POST)
     public String addArticle(@RequestParam("title") String title,
                              @RequestParam("text") String text,
                              @RequestParam("file") MultipartFile file,
-                              ModelMap modelMap,
+                             ModelMap modelMap,
                              Authentication authentication) {
         ArticleAddForm form = ArticleAddForm.builder()
-                        .title(title)
-                        .text(text)
-                        .file(file)
-                        .build();
-        if (authentication ==null) {
+                .title(title)
+                .text(text)
+                .file(file)
+                .build();
+        if (authentication == null) {
             return "redirect:/signin";
         }
         User user = (User) authentication.getPrincipal();
@@ -88,7 +86,7 @@ public class ArticleController {
 
     @GetMapping("/favorite")
     public String getFavoriteArticles(ModelMap modelMap, Authentication authentication) {
-        if (authentication ==null) {
+        if (authentication == null) {
             return "redirect:/signin";
         }
         User user = (User) authentication.getPrincipal();
@@ -98,26 +96,28 @@ public class ArticleController {
 
     @PostMapping("/addfavorite")
     public String addFavorite(@RequestParam("article_id") Long articleId,
-            ModelMap modelMap, Authentication authentication) {
-        if (authentication ==null) {
+                              ModelMap modelMap, Authentication authentication) {
+        if (authentication == null) {
             return "redirect:/signin";
         }
         User user = (User) authentication.getPrincipal();
-        modelMap.addAttribute("added",service.addFavoriteArticle(articleId, user));
+        modelMap.addAttribute("addedOrDeleted", service.addFavoriteArticle(articleId, user));// true = added, else = deleted
         return "redirect:/articles/favorite";
     }
+
     @PostMapping("/addComment")
     public String addComment(@ModelAttribute CommentForm commentForm, ModelMap modelMap, Authentication authentication) {
-        if (authentication ==null) {
+        if (authentication == null) {
             return "redirect:/signin";
         }
         User user = (User) authentication.getPrincipal();
-        service.addComment(commentForm,user.getId());
-        return "redirect:/articles/"+commentForm.getArticleId();
+        service.addComment(commentForm, user.getId());
+        return "redirect:/articles/" + commentForm.getArticleId();
     }
+
     @PostMapping("/{id}/evaluate")
-    public String evaluate(@RequestParam("grade") Short grade ,@PathVariable("id") Long articleId ,Authentication authentication ,ModelMap modelMap) {
-        if (authentication ==null) {
+    public String evaluate(@RequestParam("grade") Short grade, @PathVariable("id") Long articleId, Authentication authentication, ModelMap modelMap) {
+        if (authentication == null) {
             return "redirect:/signin";
         }
         User user = (User) authentication.getPrincipal();
@@ -126,7 +126,7 @@ public class ArticleController {
         } catch (IllegalArgumentException e) {
             return "redirect:/fuckingcheater";
         }
-        return "redirect:/articles/"+articleId;
+        return "redirect:/articles/" + articleId;
     }
 
 

@@ -44,14 +44,6 @@ public class ArticleRepositoryEntityManagerImpl implements ArticleRepository {
     @Override
     public Optional<Article> findOne(Long id) {
         Article article = em.find(Article.class, id);
-        if (article!=null) {
-            Query query = em.createNativeQuery("select avg(grade) from grades where article_id=:id");
-            query.setParameter("id",id);
-            Number number = (Number) query.getSingleResult();
-            if (number!=null) {
-                article.setAverageGrade(number.floatValue());
-            }
-        }
         return Optional.ofNullable(article);
     }
 
@@ -70,6 +62,15 @@ public class ArticleRepositoryEntityManagerImpl implements ArticleRepository {
     }
 
     @Override
+    public void revaluate(Long userId, Long articleId, Short grade) {
+        Query query = em.createNativeQuery("update grades set grade = :grade WHERE user_id = :user_id AND article_id = :article_id ");
+        query.setParameter("user_id",userId);
+        query.setParameter("article_id",articleId);
+        query.setParameter("grade",grade);
+        query.executeUpdate();
+    }
+
+    @Override
     public Short getUsersGrade(Long userId, Long articleId) {
         Query query = em.createNativeQuery("select grade from grades where article_id=:article_id and user_id=:user_id");
         query.setParameter("article_id",articleId);
@@ -79,5 +80,13 @@ public class ArticleRepositoryEntityManagerImpl implements ArticleRepository {
         } catch (NoResultException e) {
             return null;
         }
+    }
+
+    @Override
+    public Float getAvgGrade(Long articleId) {
+        Query query = em.createNativeQuery("select avg(grade) from grades where article_id=:id");
+        query.setParameter("id",articleId);
+        Number number = (Number) query.getSingleResult();
+       return number.floatValue();
     }
 }
