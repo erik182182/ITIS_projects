@@ -23,8 +23,7 @@ public class ArticleController {
     private HttpSession session;*/
     @Autowired
     private ArticleService service;
-    @Autowired
-    private ApplicationContext context;
+
 
     @RequestMapping(method = RequestMethod.GET)
     public String getAll(ModelMap modelMap, Authentication authentication) {
@@ -40,7 +39,6 @@ public class ArticleController {
         User user = null;
         if (authentication!=null) {
             user = (User) authentication.getPrincipal();
-
         }
         try{
             Article article = service.getArticle(id);
