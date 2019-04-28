@@ -82,6 +82,9 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public Boolean addFavoriteArticle(Long articleId, User user) {
+        if (user.getFavoriteArticles().contains(Article.builder().id(articleId).build())){
+            return false;
+        }
         user.getFavoriteArticles().add(articleRepository.findOne(articleId).get());
         userRepository.update(user);
         return true;
@@ -97,6 +100,9 @@ public class ArticleServiceImpl implements ArticleService {
     }
     @Override
     public void evaluate(Long userId,Long articleId,Short grade) {
+        if (grade < 1 || grade > 5) {
+            throw new IllegalArgumentException("Grade's range is {1,5}");
+        }
         articleRepository.evaluate(userId,articleId,grade);
     }
     @Override

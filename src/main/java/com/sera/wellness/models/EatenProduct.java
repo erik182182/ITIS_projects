@@ -3,6 +3,7 @@ package com.sera.wellness.models;
 import lombok.*;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.time.LocalDate;
 
 @Getter
@@ -24,5 +25,5 @@ public class EatenProduct {
     @JoinColumn(name = "user_id")
     private User user;
     private Short count;
-    private LocalDate date;
+    private Date date;
 }

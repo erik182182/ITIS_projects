@@ -43,8 +43,9 @@ public class ArticleController {
         try{
             Article article = service.getArticle(id);
             if (user!=null) {
-                modelMap.addAttribute("usersGrade", service.getUsersGrade(user.getId(), id));
+                modelMap.addAttribute("usersGrade", service.getUsersGrade(user.getId(), id));//оценка если есть
             }
+            modelMap.addAttribute("isFovorite",user.getFavoriteArticles().contains(article)); //избранная?
             //System.out.println(article.getMainImg());
             modelMap.addAttribute("article", article);
         }
@@ -101,7 +102,7 @@ public class ArticleController {
             return "redirect:/signin";
         }
         User user = (User) authentication.getPrincipal();
-        service.addFavoriteArticle(articleId, user);
+        modelMap.addAttribute("added",service.addFavoriteArticle(articleId, user));
         return "redirect:/articles/favorite";
     }
     @PostMapping("/addComment")
@@ -119,7 +120,11 @@ public class ArticleController {
             return "redirect:/signin";
         }
         User user = (User) authentication.getPrincipal();
-        service.evaluate(user.getId(),articleId,grade);
+        try {
+            service.evaluate(user.getId(), articleId, grade);
+        } catch (IllegalArgumentException e) {
+            return "redirect:/fuckingcheater";
+        }
         return "redirect:/articles/"+articleId;
     }
 

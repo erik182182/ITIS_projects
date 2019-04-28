@@ -1,6 +1,6 @@
 package com.sera.wellness.controllers;
 
-import com.sera.wellness.models.PersonalProduct;
+
 import com.sera.wellness.models.User;
 import com.sera.wellness.services.FoodService;
 import lombok.NoArgsConstructor;
@@ -23,7 +23,7 @@ public class FoodController {
             return "redirect:/signin";
         }
         User user = (User) authentication.getPrincipal();
-        modelMap.addAttribute("personalProducts",foodService.getAllPersonalProducts(user));
+        modelMap.addAttribute("personalProducts",foodService.getAllProductsToUser(user));
         return "personalProducts";
     }
 
@@ -33,7 +33,7 @@ public class FoodController {
             return "redirect:/signin";
         }
         User user = (User) authentication.getPrincipal();
-        foodService.addPersonalProduct(PersonalProduct.builder().build());
+        //foodService.addPersonalProduct(Product.builder().build());
         return "redirect:/mypersonalproducts";
     }
 
