@@ -44,7 +44,7 @@
     <div id="carouselExampleSlidesOnly" class="carousel slide my-5" data-ride="carousel">
       <div class="carousel-inner">
         <div class="carousel-item active">
-            <img src="${springMacroRequestContext.contextPath}/server.img/loginback.jpg" class="d-block w-100">
+            <img src="${springMacroRequestContext.contextPath}/uploads/${article.mainImg.fileName}" class="d-block w-100">
         </div>
       </div>
     </div>

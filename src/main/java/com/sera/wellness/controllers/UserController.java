@@ -85,7 +85,7 @@ public class UserController {
         }
 
         User user = (User) authentication.getPrincipal();
-//        user = service.getThis(user.getId()).get();
+        user = service.getThis(user.getId()).get();
 
         modelMap.addAttribute("getUser", user);
         return "profile";
@@ -110,7 +110,7 @@ public class UserController {
         }
         User user = (User) authentication.getPrincipal();
         String fileName = user.getId() + photo.hashCode() + photo.getOriginalFilename();
-        String fileDir = "src/main/resources/static/users.profile.img/" + fileName;
+        String fileDir = "uploads/" + fileName;
 
         if (!photo.isEmpty()) {
             try {
@@ -120,7 +120,7 @@ public class UserController {
                 stream.write(bytes);
                 stream.close();
             } catch (Exception e) {
-//                return "Вам не удалось загрузить " + name + " => " + e.getMessage();
+                throw new IllegalArgumentException("Вам не удалось загрузить изображение => " + e.getMessage());
             }
         } else {
             fileName = user.getPhotoSrc();
@@ -160,7 +160,7 @@ public class UserController {
                         .build();
                 service.updateUser(userToSave);
             } else {
-
+                throw new IllegalArgumentException("Не удалось сохранить ");
             }
         }
 

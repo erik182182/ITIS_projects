@@ -67,7 +67,7 @@
             <a class="article-link" href="${springMacroRequestContext.contextPath}/articles/${article.id}">
           <div class="carousel-item active d-block w-100">
 
-              <img src="${springMacroRequestContext.contextPath}/server.img/loginback.jpg" class="d-block w-100" >
+              <img src="${springMacroRequestContext.contextPath}/uploads/${article.mainImg.fileName}" class="d-block w-100" >
 
               <div class="carousel-caption d-none d-md-block">
                   <h3>${article.title}</h3>
@@ -84,7 +84,7 @@
         <div class="carousel-inner">
             <a class="article-link" href="${springMacroRequestContext.contextPath}/articles/${articles[article_index + 1].id}">
             <div class="carousel-item active">
-              <img src="${springMacroRequestContext.contextPath}/server.img/regback.jpg" class="d-block w-100">
+              <img src="${springMacroRequestContext.contextPath}/uploads/${articles[article_index + 1].mainImg.fileName}" class="d-block w-100">
               <div class="carousel-caption d-none d-md-block">
                   <h3>${articles[article_index + 1].title}</h3>
               </div>
@@ -102,7 +102,7 @@
         <div class="carousel-inner">
             <a class="article-link" href="${springMacroRequestContext.contextPath}/articles/${articles[article_index + 2].id}">
             <div class="carousel-item active">
-              <img src="${springMacroRequestContext.contextPath}/server.img/loginback.jpg" class="d-block w-100">
+              <img src="${springMacroRequestContext.contextPath}/uploads/${articles[article_index + 2].mainImg.fileName}" class="d-block w-100">
               <div class="carousel-caption d-none d-md-block">
                   <h3>${articles[article_index + 2].title}</h3>
               </div>

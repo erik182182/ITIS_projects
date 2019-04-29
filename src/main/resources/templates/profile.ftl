@@ -23,9 +23,9 @@
 
         <h1>${getUser.firstName} ${getUser.lastName}</h1>
         <#if getUser.photoSrc??>
-            <img src="${springMacroRequestContext.contextPath}/users.profile.img/${getUser.photoSrc}">
+            <img src="${springMacroRequestContext.contextPath}/uploads/${getUser.photoSrc}">
         <#else >
-            <img src="${springMacroRequestContext.contextPath}/users.profile.img/default.png">
+            <img src="${springMacroRequestContext.contextPath}/uploads/default.png">
         </#if>
 
         <form method="post" enctype="multipart/form-data">
@@ -54,7 +54,7 @@
 
             <label for="growth">Рост</label>
             <input type="number" name="growth" id="growth" placeholder="Ваш рост" value="<#if getUser.growth??>${getUser.growth}</#if>" required>
-            <label for="age">Рост</label>
+            <label for="age">Возраст</label>
             <input type="number" name="age" id="age" placeholder="Возраст" value="<#if getUser.age??>${getUser.age}</#if>" required>
 
             <label for="weight">Текущий вес</label>

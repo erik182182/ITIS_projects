@@ -45,7 +45,7 @@ public class ArticleServiceImpl implements ArticleService {
         for (int i = 0; i < articles.size(); i++) {
             Article article = articles.get(i);
             if (article.getMainImg() != null) {
-                article.getMainImg().setFileName("/uploads/" + article.getMainImg().getFileName());
+                article.getMainImg().setFileName(article.getMainImg().getFileName());
             }
         }
         return articles;
@@ -56,7 +56,7 @@ public class ArticleServiceImpl implements ArticleService {
         if (articleCandidate.isPresent()) {
             Article article = articleCandidate.get();
             if (article.getMainImg() != null) {
-                article.getMainImg().setFileName("/uploads/" + article.getMainImg().getFileName());
+                article.getMainImg().setFileName(article.getMainImg().getFileName());
             }
             return article;
         } else {
