@@ -89,34 +89,38 @@ public class DirectionRepositoryImpl implements DirectionRepository{
         return jdbcTemplate.query(SQL_GET_ALL_DIR, new ResultSetExtractor<List<Direction>>() {
             @Override
             public List<Direction> extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+                resultSet.next();
                 List<Direction> dirs = new ArrayList<>();
-                Direction direction = Direction.builder()
-                        .id(resultSet.getLong("id"))
-                        .info(resultSet.getString("info"))
-                        .budgetPlaces(resultSet.getInt("budget_places"))
-                        .name(resultSet.getString("name"))
-                        .university(University.builder()
-                                .id(resultSet.getLong("uni_id"))
-                                .info(resultSet.getString("uni_info"))
-                                .name(resultSet.getString("uni_name"))
-                                .city(City.builder()
-                                        .id(resultSet.getLong("city_id"))
-                                        .name(resultSet.getString("city_id"))
-                                        .build())
-                                .build())
-                        .build();
-                long id = resultSet.getLong("id");
-                Set<Exam> examsOfDirecion = new HashSet<>();
-                do {
-                    examsOfDirecion.add(Exam.builder()
-                            .score(resultSet.getInt("min_score"))
-                            .subject(Subject.builder()
-                                    .id(resultSet.getLong("subj_id"))
-                                    .name(resultSet.getString("subj_name")).build())
-                            .build());
-                }
-                while ( resultSet.next() && resultSet.getLong("id") == id );
-                direction.setExamsWithMinScore(examsOfDirecion);
+                do{
+                    Direction direction = Direction.builder()
+                            .id(resultSet.getLong("id"))
+                            .info(resultSet.getString("info"))
+                            .budgetPlaces(resultSet.getInt("budget_places"))
+                            .name(resultSet.getString("name"))
+                            .university(University.builder()
+                                    .id(resultSet.getLong("uni_id"))
+                                    .info(resultSet.getString("uni_info"))
+                                    .name(resultSet.getString("uni_name"))
+                                    .city(City.builder()
+                                            .id(resultSet.getLong("city_id"))
+                                            .name(resultSet.getString("city_name"))
+                                            .build())
+                                    .build())
+                            .build();
+                    long id = resultSet.getLong("id");
+                    Set<Exam> examsOfDirecion = new HashSet<>();
+                    do {
+                        examsOfDirecion.add(Exam.builder()
+                                .score(resultSet.getInt("min_score"))
+                                .subject(Subject.builder()
+                                        .id(resultSet.getLong("subj_id"))
+                                        .name(resultSet.getString("subj_name")).build())
+                                .build());
+                    }
+                    while ( resultSet.next() && resultSet.getLong("id") == id );
+                    direction.setExamsWithMinScore(examsOfDirecion);
+                    dirs.add(direction);
+                } while (!resultSet.isAfterLast());
                 return dirs;
             }
         });
@@ -124,6 +128,7 @@ public class DirectionRepositoryImpl implements DirectionRepository{
 
     @Override
     public Set<Direction> getAppropriateDirectionsForUser(Long userId) {
-        return new HashSet<>();
+        //TODO: SQL
+         return null;
     }
 }

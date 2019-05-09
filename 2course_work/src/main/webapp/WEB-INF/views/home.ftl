@@ -1,4 +1,4 @@
-
+<#--<#import "/spring.ftl" as spring />-->
 <html>
 <head>
 
@@ -41,13 +41,10 @@
 
 
         <#if !user??>
-            <button type="button" class="btn btn-light" style=" margin-left: 15px;" id="sign-in-button">Войти</button>
+            <a type="button" href="/signin" class="btn btn-light" style=" margin-left: 15px;" id="sign-in-button">Войти</a>
 
         <#else>
-            <form method="post" action="/logout">
-            <button type="submit" class="btn btn-light" style=" margin-left: 15px;" id="log-out-button">Выйти</button>
-            </form>
-
+            <a type="button" href="/logout" class="btn btn-light" style=" margin-left: 15px;" id="log-out-button">Выйти</a>
         </#if>
     </div>
 </nav>
@@ -81,7 +78,9 @@
                         <div class="tab-pane fade show active" id="v-pills-home${dir.id}" role="tabpanel" >
                             <div>
                                     ${dir.university.info}
-                                <p><span class="info">Город: </span>${dir.university.city.name}</p>
+                                <a href="/city?city_id=${dir.university.city.id}">
+                                    <p><span class="info">Город: </span>${dir.university.city.name}</p>
+                                </a>
 
                             </div>
                         </div>
@@ -108,8 +107,17 @@
                 </div>
             </div>
             <#if user??>
-                <button type="button" value="${dir.university.name}, ${dir.name}" class="btn btn-success" style="margin-left: 40%; margin-bottom: 3%;" onclick="apply(${dir.id}, value);">Подать заявление</button>
+                <#--<form method="post" action="/home/add">-->
+                <#--<@spring.formInput path="directionForm.dirId" type="hidden" value="${dir.id}" name="dir_id" />-->
+                    <#--<button type="submit"  class="btn btn-success" style="margin-left: 40%; margin-bottom: 3%;">Подать заявление</button>-->
+                <#--</form>-->
+                <form method="post" action="/home/add">
+                <input type="hidden" value="${dir.id}" name="dirId" />
+                    <button type="submit"  class="btn btn-success" style="margin-left: 40%; margin-bottom: 3%;">Подать заявление</button>
+                </form>
             </#if>
+                <#--<button type="button" value="${dir.university.name}, ${dir.name}" class="btn btn-success" style="margin-left: 40%; margin-bottom: 3%;" onclick="apply(${dir.id}, value);">Подать заявление</button>-->
+
         </div>
 
     </#list>
@@ -170,49 +178,33 @@
 
 
 
-<script>
-
-    <#if !user??>
-    document.getElementById("sign-in-button").onclick = function () {
-        return location.href = "/signIn";
-    }
-
-
-
-    <#else>
-
-
-    function apply(dirId, value){
-        if(!confirm("Вы действительно хотите подать заявление? Это действие невозможно отменить.\n"
-        + value)) return;
-        $.ajax({
-            type: 'post',
-            url: "/home",
-            data: {
-                dirId: dirId
-            }
-        }).done(function (data) {
-            document.getElementById("dir-message").innerHTML =
-                "<div class=\"alert alert-" + data.flag +  " alert-dismissible fade show\" role=\"alert\">\n" +
-                data.message +
-                "  <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n" +
-                "    <span aria-hidden=\"true\">&times;</span>\n" +
-                "  </button>\n" +
-                "</div>";
-            var content = "";
-            for(var i = 0; i < data.declarations.length; i++){
-                if(data.declarations[i] != undefined) content += "<li class=\"list-group-item\" style='color: #3872d1;'>"+data.declarations[i] +"</li>";
-            }
-            document.getElementById("decs").innerHTML = content;
-            document.getElementById("decs-size").innerText = data.size;
-        }).fail(function () {
-            alert("Произошла ошибка.");
-        });
-    }
-
-
-    </#if>
-
-
-</script>
+<#--<script>-->
+    <#--function apply(dirId, value){-->
+        <#--if(!confirm("Вы действительно хотите подать заявление? Это действие невозможно отменить.\n"-->
+        <#--+ value)) return;-->
+        <#--$.ajax({-->
+            <#--type: 'post',-->
+            <#--url: "/home",-->
+            <#--data: {-->
+                <#--dirId: dirId-->
+            <#--}-->
+        <#--}).done(function (data) {-->
+            <#--document.getElementById("dir-message").innerHTML =-->
+                <#--"<div class=\"alert alert-" + data.flag +  " alert-dismissible fade show\" role=\"alert\">\n" +-->
+                <#--data.message +-->
+                <#--"  <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n" +-->
+                <#--"    <span aria-hidden=\"true\">&times;</span>\n" +-->
+                <#--"  </button>\n" +-->
+                <#--"</div>";-->
+            <#--var content = "";-->
+            <#--for(var i = 0; i < data.declarations.length; i++){-->
+                <#--if(data.declarations[i] != undefined) content += "<li class=\"list-group-item\" style='color: #3872d1;'>"+data.declarations[i] +"</li>";-->
+            <#--}-->
+            <#--document.getElementById("decs").innerHTML = content;-->
+            <#--document.getElementById("decs-size").innerText = data.size;-->
+        <#--}).fail(function () {-->
+            <#--alert("Произошла ошибка.");-->
+        <#--});-->
+    <#--}-->
+<#--</script>-->
 </html>

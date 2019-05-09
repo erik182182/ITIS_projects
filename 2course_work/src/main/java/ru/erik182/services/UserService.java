@@ -1,8 +1,7 @@
 package ru.erik182.services;
 
+import org.springframework.security.core.userdetails.UserDetailsService;
 import ru.erik182.models.User;
-import ru.erik182.models.forms.SignInForm;
 
-public interface UserService {
-    User singIn(SignInForm form);
+public interface UserService extends UserDetailsService {
 }

@@ -14,7 +14,6 @@ public class UserRowMapper implements RowMapper<User> {
                 .fullName(resultSet.getString("full_name"))
                 .passport(resultSet.getString("passport"))
                 .hashPassword(resultSet.getString("password"))
-                .type(resultSet.getString("type"))
                 .build();
     }
 }

@@ -9,4 +9,5 @@ import java.util.Set;
 
 public interface DirectionService {
     Set<Direction> getDirections(User user);
+    Set<Direction> getDirectionsOfUserWithDeclarations(User user);
 }

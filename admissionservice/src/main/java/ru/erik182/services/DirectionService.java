@@ -54,10 +54,6 @@ public class DirectionService {
             if (matches==dirExams.size()) userDirections.add(direction);
             matches = 0;
         }
-
         return userDirections;
-
     }
-
-
 }

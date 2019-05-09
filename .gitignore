@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Compiled class file
 *.class
 
@@ -6,6 +7,10 @@
 
 # BlueJ files
 *.ctxt
+=======
+*.class
+*.properties
+>>>>>>> 4b9c4fe65dac8e0ad1e892d6fb47632a1790e400
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
@@ -13,6 +18,7 @@
 # Package Files #
 *.jar
 *.war
+<<<<<<< HEAD
 *.nar
 *.ear
 *.zip
@@ -26,3 +32,30 @@ hs_err_pid*
 .idea
 target
 *.iml
+=======
+*.ear
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+.settings/
+.project
+.classpath
+.springBeans
+**/target/
+/commit.txt
+/*/logs/
+/*/wrk/
+effective-pom.xml
+effective-settings.xml
+/*/.gwt/
+.cache
+.idea/
+**/classes/
+**/out/
+*.iml
+*.log
+*.lck
+*.jar
+*/dependency-reduced-pom.xml
+node_modules
+>>>>>>> 4b9c4fe65dac8e0ad1e892d6fb47632a1790e400
